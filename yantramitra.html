@@ -1,0 +1,96 @@
+<!-- HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YantraMitra - Equipment Rentals</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="yantramitra.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-circle">
+    <img src="logo.png" alt="KrishiMitra Logo">
+  </div>
+  <h1>KrishiMitra</h1>
+</header>
+
+<!-- Navbar -->
+<nav>
+  <a href="index.html">Home</a>
+  <a href="#equipment">Equipment Rentals</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-left">
+    <h2>YantraMitra</h2>
+    <p>Find tractors, harvesters, ploughs, and other farming equipment nearby. Rent with ease and make your farming work more efficient.</p>
+    <button onclick="window.location.href='#equipment'">Get Started</button>
+  </div>
+  <div class="hero-right">
+    <img src="farmer.png" alt="Farmer Illustration">
+  </div>
+</section>
+
+<!-- Equipment Listings -->
+<section id="equipment" class="equipment-section">
+  <h2>Available Equipment</h2>
+  <div class="equipment-container">
+    <div class="equipment-card">
+      <img src="tractor.png" alt="Tractor">
+      <h3>Tractor</h3>
+      <p>₹1500 / day</p>
+      <p>Location: Pune</p>
+    </div>
+    <div class="equipment-card">
+      <img src="harvester.png" alt="Harvester">
+      <h3>Harvester</h3>
+      <p>₹3000 / day</p>
+      <p>Location: Nashik</p>
+    </div>
+    <div class="equipment-card">
+      <img src="plough.png" alt="Plough">
+      <h3>Plough</h3>
+      <p>₹500 / day</p>
+      <p>Location: Ahmednagar</p>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section id="how-it-works" class="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps-container">
+    <div class="step-box">
+      <i data-feather="search"></i>
+      <h3>Browse Equipment</h3>
+      <p>Check available tools near your location with images and daily rates.</p>
+    </div>
+    <div class="step-box">
+      <i data-feather="calendar"></i>
+      <h3>Reserve & Schedule</h3>
+      <p>Select dates and book the equipment you need for your farming tasks.</p>
+    </div>
+    <div class="step-box">
+      <i data-feather="check-circle"></i>
+      <h3>Pick Up / Delivery</h3>
+      <p>Get the equipment delivered or pick it up from nearby rental points.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 KrishiMitra | All Rights Reserved</p>
+</footer>
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="yantramitra.js"></script>
+</body>
+</html>

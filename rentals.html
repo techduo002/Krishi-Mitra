@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nearby Equipment Rentals | KrishiMitra</title>
+  <link rel="stylesheet" href="rentals.css">
+</head>
+<body>
+  <h1>🚜 Nearby Equipment Rentals</h1>
+
+  <form id="rentalForm">
+    <input type="text" id="toolName" placeholder="Tool Name (e.g., Tractor)" required>
+    <input type="text" id="location" placeholder="Location (e.g., Delhi)" required>
+    <input type="text" id="rate" placeholder="Rate per day (₹)" required>
+    <input type="text" id="contact" placeholder="Contact (Phone/Email)" required>
+    <input type="file" id="image" accept="image/*">
+    <button type="submit">Post Rental</button>
+  </form>
+
+  <h2>Available Tools</h2>
+  <div id="rentalList"></div>
+
+  <script src="rentals.js"></script>
+</body>
+</html>
