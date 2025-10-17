@@ -31,7 +31,6 @@
       <h1>KrishiMitra</h1>
       <p>Your digital companion from sowing to selling. Empowering Indian farmers with AI insights, crop recommendations, and market guidance.</p>
       <button onclick="window.location.href='login.html'">Let’s Grow</button>
-
     </div>
     <div class="hero-right">
       <img src="farmer.jpg" alt="Farmer Illustration" class="hero-illustration">
@@ -77,25 +76,15 @@
         <p>Includes price trends and insights to make informed decisions.</p>
       </div>
     </div>
-        <div class="feature-box">
-  <i data-feather="settings" class="feature-icon"></i>
-  <div class="feature-content">
-    <h3>YantraMitra</h3>
-    <p>Find tractors, harvesters, and other farming tools for rent nearby. Saves time, effort, and reduces investment costs for equipment.</p>
-    <p>Ensures you always have the right machinery when you need it for every stage of cultivation.</p>
-  </div>
-</div>
 
-        <div class="feature-box">
-      <i data-feather="shopping-bag" class="feature-icon"></i>
+    <div class="feature-box">
+      <i data-feather="settings" class="feature-icon"></i>
       <div class="feature-content">
-        <h3>Anaaj Bazaar</h3>
-        <p>Example marketplace shows prices offered by nearby farmers and wholesalers. Plan your sales and get fair pricing for your produce.</p>
-        <p>Includes price trends and insights to make informed decisions.</p>
+        <h3>YantraMitra</h3>
+        <p>Find tractors, harvesters, and other farming tools for rent nearby. Saves time, effort, and reduces investment costs for equipment.</p>
+        <p>Ensures you always have the right machinery when you need it for every stage of cultivation.</p>
       </div>
     </div>
-
-
   </section>
 
   <!-- Marketplace Demo Section -->
@@ -125,8 +114,37 @@
     <p>KrishiMitra empowers Indian farmers with smart tools for crop selection, disease detection, AI chatbot assistance, and marketplace insights. We make farming smarter, sustainable, and more profitable.</p>
   </section>
 
-  <!-- Footer -->
+  <!-- Contact / Footer Section -->
   <footer id="contact">
+    <h2>Contact Us</h2>
+    <p>Have a question, feedback, or partnership idea? We’d love to hear from you!</p>
+
+    <form name="contact" method="POST" data-netlify="true" class="contact-form">
+      <input type="hidden" name="form-name" value="contact">
+
+      <p>
+        <label><i data-feather="user"></i> Name<br>
+          <input type="text" name="name" required placeholder="Enter your name">
+        </label>
+      </p>
+
+      <p>
+        <label><i data-feather="mail"></i> Email<br>
+          <input type="email" name="email" required placeholder="Enter your email">
+        </label>
+      </p>
+
+      <p>
+        <label><i data-feather="message-square"></i> Message<br>
+          <textarea name="message" rows="5" required placeholder="Your message..."></textarea>
+        </label>
+      </p>
+
+      <p>
+        <button type="submit">Send Message</button>
+      </p>
+    </form>
+
     <p>&copy; 2025 KrishiMitra | All Rights Reserved.</p>
   </footer>
 
@@ -134,7 +152,5 @@
   <script>
     feather.replace();
   </script>
-  <script src='https://www.noupe.com/embed/0199f1373e0279f7b7c7e7bfc7d604b91b8f.js'></script>
 </body>
 </html>
-
