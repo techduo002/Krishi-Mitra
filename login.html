@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManoVeda Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Waves -->
+  <div class="wave1"></div>
+  <div class="wave2"></div>
+
+  <!-- Login Card -->
+  <div class="card text-white">
+    <div class="logo">ManoVeda Login</div>
+
+    <!-- Email/Password Login Form -->
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" id="email" class="form-control" placeholder="Enter email" required>
+      </div>
+      <div class="mb-3">
+        <label for="pass" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+      </div>
+      <button type="submit" class="btn btn-custom w-100">Login</button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <!-- Google Login Button -->
+    <button id="google-signin" class="btn btn-google w-100 mb-2">Login with Google</button>
+
+    <p class="text-center mt-3" style="font-size: 0.9rem;">Coming soon: Personalized analytics & progress tracking!</p>
+  </div>
+
+  <!-- Firebase & Auth -->
+  <script type="module" src="login.js"></script>
+
+</body>
+</html>
