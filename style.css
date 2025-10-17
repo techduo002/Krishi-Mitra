@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: flex-start; /* aligns left; use center for center */
+  justify-content: flex-start;
   background-color: #FFFFFF;
   padding: 10px 15px;
   border-radius: 25px;
@@ -36,6 +36,7 @@
 #google-translate-element select:focus {
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5) !important;
 }
+
 
 
 body {
@@ -357,5 +358,6 @@ header {
     font-size: 1rem;
   }
 }
+
 
 
