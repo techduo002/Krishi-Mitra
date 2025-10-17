@@ -9,25 +9,52 @@
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
- <!-- Google Translate Custom Widget -->
-<div id="google-translate-wrapper">
-  <label for="google-translate-select">Select Language:</label>
-  <div id="google-translate-element"></div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Google Translate Widget</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- Google Translate Script -->
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google-translate-element');
-}
-</script>
-<script type="text/javascript" 
-  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-</script>
+  <!-- Google Translate Custom Widget -->
+  <div id="google-translate-wrapper">
+    <label for="google-translate-select">Select Language:</label>
+    <div id="google-translate-element"></div>
+  </div>
+
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google-translate-element');
+
+      // Filter only Indian languages + German
+      const filterLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa', 'de'];
+      const interval = setInterval(() => {
+        const select = document.querySelector('#google-translate-element select');
+        if (select) {
+          Array.from(select.options).forEach(option => {
+            if (!filterLanguages.includes(option.value)) {
+              option.remove();
+            }
+          });
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+  </script>
+
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
+
 
 
 
@@ -176,5 +203,6 @@ function googleTranslateElementInit() {
   <script src='https://www.noupe.com/embed/0199f1373e0279f7b7c7e7bfc7d604b91b8f.js'></script>
 </body>
 </html>
+
 
 
