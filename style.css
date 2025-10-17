@@ -1,4 +1,42 @@
 /* GLOBAL */
+/* Google Translate Container */
+.translate-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 2rem;
+  background-color: #FFFFFF;
+  border-radius: 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 0.95rem;
+  color: #1B1B1B;
+  margin: 1rem auto;
+  max-width: 300px;
+}
+
+.translate-container span {
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+/* Customize the Google Translate dropdown */
+.translate-container select {
+  border: 1px solid #4CAF50;
+  border-radius: 10px;
+  padding: 5px 8px;
+  background-color: #FFFFFF;
+  color: #1B1B1B;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.translate-container select:hover {
+  background-color: #f0fdf4;
+}
+
 body {
   margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -318,3 +356,4 @@ header {
     font-size: 1rem;
   }
 }
+
