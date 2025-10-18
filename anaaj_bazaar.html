@@ -127,83 +127,83 @@
   </div>
 
   <script>
-    // 🧠 Initialize Supabase
-    const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co"; // Replace with your project URL
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your anon key
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // 🧠 Initialize Supabase
+  const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co"; // Replace with your project URL
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your anon key
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const form = document.getElementById("priceForm");
-    const dataBody = document.getElementById("dataBody");
+  const form = document.getElementById("priceForm");
+  const dataBody = document.getElementById("dataBody");
 
-    // 📥 Insert Data
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  // 📥 Insert Data
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const role = document.getElementById("role").value.trim();
-      const product = document.getElementById("product").value.trim();
-      const price = parseFloat(document.getElementById("price").value);
-      const location = document.getElementById("location").value.trim();
-      const date = new Date().toISOString(); // timestamptz format
+    const role = document.getElementById("role").value.trim();
+    const product = document.getElementById("product").value.trim();
+    const price = parseFloat(document.getElementById("price").value);
+    const location = document.getElementById("location").value.trim();
+    const date = new Date().toISOString(); // timestamptz format
 
-      const { error } = await supabase.from("anaaj_bazaar").insert([
-        { role, product, price, location, date }
-      ]);
+    const { error } = await supabaseClient.from("anaaj_bazaar").insert([
+      { role, product, price, location, date }
+    ]);
 
-      if (error) {
-        alert("❌ Error: " + error.message);
-      } else {
-        form.reset();
-        alert("✅ Data added successfully!");
-      }
-    });
-
-    // 📋 Fetch Initial Data
-    async function fetchData() {
-      const { data, error } = await supabase
-        .from("anaaj_bazaar")
-        .select("*")
-        .order("date", { ascending: false });
-
-      if (error) {
-        console.error(error);
-      } else {
-        dataBody.innerHTML = "";
-        data.forEach((row) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${row.role}</td>
-            <td>${row.product}</td>
-            <td>₹${row.price}</td>
-            <td>${row.location}</td>
-            <td>${new Date(row.date).toLocaleString()}</td>
-          `;
-          dataBody.appendChild(tr);
-        });
-      }
+    if (error) {
+      alert("❌ Error: " + error.message);
+    } else {
+      form.reset();
+      alert("✅ Data added successfully!");
     }
+  });
 
-    fetchData();
+  // 📋 Fetch Initial Data
+  async function fetchData() {
+    const { data, error } = await supabaseClient
+      .from("anaaj_bazaar")
+      .select("*")
+      .order("date", { ascending: false });
 
-    // 🔁 Real-Time Subscription for new entries
-    supabase
-      .channel('anaaj_bazaar_changes')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'anaaj_bazaar' },
-        payload => {
-          const newRow = payload.new;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${newRow.role}</td>
-            <td>${newRow.product}</td>
-            <td>₹${newRow.price}</td>
-            <td>${newRow.location}</td>
-            <td>${new Date(newRow.date).toLocaleString()}</td>
-          `;
-          dataBody.prepend(tr);
-        }
-      )
-      .subscribe();
-  </script>
+    if (error) {
+      console.error(error);
+    } else {
+      dataBody.innerHTML = "";
+      data.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.role}</td>
+          <td>${row.product}</td>
+          <td>₹${row.price}</td>
+          <td>${row.location}</td>
+          <td>${new Date(row.date).toLocaleString()}</td>
+        `;
+        dataBody.appendChild(tr);
+      });
+    }
+  }
+
+  fetchData();
+
+  // 🔁 Real-Time Subscription for new entries
+  supabaseClient
+    .channel('anaaj_bazaar_changes')
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'anaaj_bazaar' },
+      payload => {
+        const newRow = payload.new;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${newRow.role}</td>
+          <td>${newRow.product}</td>
+          <td>₹${newRow.price}</td>
+          <td>${newRow.location}</td>
+          <td>${new Date(newRow.date).toLocaleString()}</td>
+        `;
+        dataBody.prepend(tr);
+      }
+    )
+    .subscribe();
+</script>
 </body>
 </html>
