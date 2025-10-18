@@ -7,8 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/feather-icons"></script>
-</head>
-<body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,12 +20,6 @@
  
 
 
-<!-- Google Translate Custom Widget -->
-<div id="google-translate-wrapper">
-  <label for="google-translate-select">Select Language:</label>
-  <div id="google-translate-element"></div>
-</div>
-
 <!-- Google Translate Script -->
 <script type="text/javascript">
   function googleTranslateElementInit() {
@@ -37,31 +29,24 @@
       autoDisplay: false
     }, 'google-translate-element');
 
-    // Filter only Indian languages
-    const filterLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
-    const select = document.querySelector('#google-translate-element select');
+    // Define Indian language codes
+    const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
 
-    // Use a MutationObserver or timeout to ensure the select is available
-    if (select) {
-      filterLanguageOptions(select, filterLanguages);
-    } else {
-      const observer = new MutationObserver((mutations, obs) => {
-        const updatedSelect = document.querySelector('#google-translate-element select');
-        if (updatedSelect) {
-          filterLanguageOptions(updatedSelect, filterLanguages);
-          obs.disconnect(); // Stop observing once the select is found
-        }
-      });
-      observer.observe(document.getElementById('google-translate-element'), { childList: true, subtree: true });
-    }
+    // Wait for the select element and filter languages
+    const checkSelect = setInterval(() => {
+      const select = document.querySelector('#google-translate-element select');
+      if (select) {
+        clearInterval(checkSelect);
+        Array.from(select.options).forEach(option => {
+          if (!indianLanguages.includes(option.value)) {
+            option.remove();
+          }
+        });
+      }
+    }, 100); // Check every 100ms
 
-    function filterLanguageOptions(select, allowedLanguages) {
-      Array.from(select.options).forEach(option => {
-        if (!allowedLanguages.includes(option.value)) {
-          option.remove();
-        }
-      });
-    }
+    // Clear interval if it runs too long to avoid memory leaks
+    setTimeout(() => clearInterval(checkSelect), 5000);
   }
 </script>
 
@@ -214,6 +199,7 @@
   <script src='https://www.noupe.com/embed/0199f337b02577d2b5a53aa18ef487bab01e.js'></script>
 </body>
 </html>
+
 
 
 
