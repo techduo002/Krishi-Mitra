@@ -9,28 +9,56 @@
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-  <!-- Sidebar with Google Translate -->
-  <aside id="language-sidebar">
+  <!-- Enhanced Sidebar -->
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <h3>Language</h3>
+      <h3>Settings</h3>
       <button id="toggle-sidebar" aria-label="Toggle Sidebar">
-        <i data-feather="menu"></i>
+        <i data-feather="x"></i>
       </button>
     </div>
-    <div id="google-translate-wrapper">
-      <label for="google-translate-select">Select Language:</label>
-      <div id="google-translate-element"></div>
-    </div>
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <i data-feather="globe" class="sidebar-icon"></i>
+        <span>Change Language</span>
+        <div class="sidebar-subcontent">
+          <div id="google-translate-wrapper">
+            <select id="language-select" class="language-select">
+              <!-- Options will be populated by Google Translate -->
+            </select>
+          </div>
+        </div>
+      </li>
+      <li class="sidebar-item">
+        <i data-feather="moon" class="sidebar-icon"></i>
+        <span>Theme</span>
+        <div class="sidebar-subcontent">
+          <button id="theme-toggle" class="theme-button">Switch to Dark Mode</button>
+        </div>
+      </li>
+      <li class="sidebar-item">
+        <i data-feather="user" class="sidebar-icon"></i>
+        <span>Profile</span>
+        <div class="sidebar-subcontent">
+          <button onclick="window.location.href='login.html'" class="profile-button">Login / Profile</button>
+        </div>
+      </li>
+    </ul>
   </aside>
 
+  <!-- Sidebar Toggle Button (Hamburger for opening) -->
+  <button id="open-sidebar" class="open-sidebar-btn" aria-label="Open Sidebar">
+    <i data-feather="menu"></i>
+  </button>
+
   <!-- Header -->
-  <header id="header">
+  <header id="header" class="fade-in">
     <div class="logo-placeholder"></div>
     <h1 class="header-title">KrishiMitra</h1>
   </header>
 
   <!-- Navbar -->
-  <nav id="navbar">
+  <nav id="navbar" class="fade-in">
     <a href="#hero">Home</a>
     <a href="#features">Features</a>
     <a href="#market">Marketplace</a>
@@ -39,11 +67,11 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="hero" class="hero">
+  <section id="hero" class="hero fade-in">
     <div class="hero-left">
       <h1>KrishiMitra</h1>
       <p>Your digital companion from sowing to selling. Empowering Indian farmers with AI insights, crop recommendations, and market guidance.</p>
-      <button onclick="window.location.href='login.html'">Let’s Grow</button>
+      <button onclick="window.location.href='login.html'" class="btn-primary">Let’s Grow</button>
     </div>
     <div class="hero-right">
       <img src="farmer.jpg" alt="Farmer Illustration" class="hero-illustration">
@@ -51,7 +79,7 @@
   </section>
 
   <!-- Features Section -->
-  <section id="features" class="features">
+  <section id="features" class="features fade-in">
     <h2>Our Key Features</h2>
 
     <div class="feature-box">
@@ -101,7 +129,7 @@
   </section>
 
   <!-- Marketplace Demo Section -->
-  <section id="market" class="market">
+  <section id="market" class="market fade-in">
     <h2>Marketplace Demo</h2>
     <p>Example of crop prices offered by farmers and wholesalers in your area.</p>
 
@@ -122,13 +150,13 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="about">
+  <section id="about" class="about fade-in">
     <h2>About KrishiMitra</h2>
     <p>KrishiMitra empowers Indian farmers with smart tools for crop selection, disease detection, AI chatbot assistance, and marketplace insights. We make farming smarter, sustainable, and more profitable.</p>
   </section>
 
   <!-- Contact / Footer Section -->
-  <footer id="contact">
+  <footer id="contact" class="fade-in">
     <h2>Contact Us</h2>
     <p>Have a question, feedback, or partnership idea? We’d love to hear from you!</p>
 
@@ -154,7 +182,7 @@
       </p>
 
       <p>
-        <button type="submit">Send Message</button>
+        <button type="submit" class="btn-primary">Send Message</button>
       </p>
     </form>
 
@@ -177,29 +205,61 @@
         autoDisplay: false
       }, 'google-translate-element');
 
-      // Filter only Indian languages
-      const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
+      // Move the select to our custom element
       const interval = setInterval(() => {
-        const select = document.querySelector('#google-translate-element select');
-        if (select) {
-          Array.from(select.options).forEach(option => {
-            if (!indianLanguages.includes(option.value)) {
-              option.remove();
-            }
+        const originalSelect = document.querySelector('.goog-te-combo');
+        if (originalSelect) {
+          const customSelect = document.getElementById('language-select');
+          customSelect.innerHTML = '';
+          Array.from(originalSelect.options).forEach(option => {
+            customSelect.appendChild(option.cloneNode(true));
           });
+          originalSelect.style.display = 'none';
           clearInterval(interval);
         }
       }, 100);
+
+      // Filter only Indian languages
+      const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
+      const filterInterval = setInterval(() => {
+        const select = document.getElementById('language-select');
+        if (select) {
+          Array.from(select.options).forEach(option => {
+            if (!indianLanguages.includes(option.value) && option.value !== '') {
+              option.remove();
+            }
+          });
+          clearInterval(filterInterval);
+        }
+      }, 100);
     }
+
+    // Smooth language change
+    document.addEventListener('DOMContentLoaded', () => {
+      const languageSelect = document.getElementById('language-select');
+      languageSelect.addEventListener('change', (e) => {
+        document.body.classList.add('translating');
+        setTimeout(() => {
+          document.body.classList.remove('translating');
+        }, 500); // Match transition duration
+      });
+    });
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>
-    // Sidebar toggle functionality
-    const sidebar = document.getElementById('language-sidebar');
-    const toggleButton = document.getElementById('toggle-sidebar');
-    toggleButton.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('open-sidebar');
+    const closeBtn = document.getElementById('toggle-sidebar');
+    openBtn.addEventListener('click', () => sidebar.classList.add('open'));
+    closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      themeToggle.textContent = document.body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
     });
   </script>
 </body>
