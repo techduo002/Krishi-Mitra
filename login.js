@@ -1,26 +1,23 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  let email = document.getElementById("email").value.trim();
-  let password = document.getElementById("password").value.trim();
+async function loginUser() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
 
   if (!email || !password) {
-    alert("Please enter both email and password correctly.");
+    alert("⚠️ Please fill in both fields.");
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem("manoveda_users")) || [];
-  const existingUser = users.find(user => user.email === email);
+  const { data, error } = await client.auth.signInWithPassword({ email, password });
 
-  if (!existingUser) {
-    users.push({ email, password });
-    localStorage.setItem("manoveda_users", JSON.stringify(users));
-    localStorage.setItem("manoveda_current", JSON.stringify({ email }));
-    alert("Welcome, new user! 🌸");
-  } else {
-    localStorage.setItem("manoveda_current", JSON.stringify(existingUser));
-    alert("Welcome back, " + existingUser.email + "!");
+  if (error) {
+    alert("❌ " + error.message);
+    return;
   }
 
-  window.location.href = "index.html";
-});
+  alert("✅ Welcome back to KrishiMitra!");
+  window.location.href = "dashboard.html";
+}
