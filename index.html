@@ -7,51 +7,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/feather-icons"></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Google Translate Widget</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <script src="login.html"></script>
- 
-
-
-<!-- Google Translate Script -->
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google-translate-element');
-
-    // Define Indian language codes
-    const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
-
-    // Wait for the select element and filter languages
-    const checkSelect = setInterval(() => {
-      const select = document.querySelector('#google-translate-element select');
-      if (select) {
-        clearInterval(checkSelect);
-        Array.from(select.options).forEach(option => {
-          if (!indianLanguages.includes(option.value)) {
-            option.remove();
-          }
-        });
-      }
-    }, 100); // Check every 100ms
-
-    // Clear interval if it runs too long to avoid memory leaks
-    setTimeout(() => clearInterval(checkSelect), 5000);
-  }
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+  <!-- Sidebar with Google Translate -->
+  <aside id="language-sidebar">
+    <div class="sidebar-header">
+      <h3>Language</h3>
+      <button id="toggle-sidebar" aria-label="Toggle Sidebar">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+    <div id="google-translate-wrapper">
+      <label for="google-translate-select">Select Language:</label>
+      <div id="google-translate-element"></div>
+    </div>
+  </aside>
 
   <!-- Header -->
   <header id="header">
@@ -111,15 +81,14 @@
       </div>
     </div>
 
-   <a href="anaaj_bazaar.html" class="feature-box" style="text-decoration: none; color: inherit;">
-  <i data-feather="shopping-bag" class="feature-icon"></i>
-  <div class="feature-content">
-    <h3>Anaaj Bazaar</h3>
-    <p>Example marketplace shows prices offered by nearby farmers and wholesalers. Plan your sales and get fair pricing for your produce.</p>
-    <p>Includes price trends and insights to make informed decisions.</p>
-  </div>
-</a>
-
+    <a href="anaaj_bazaar.html" class="feature-box" style="text-decoration: none; color: inherit;">
+      <i data-feather="shopping-bag" class="feature-icon"></i>
+      <div class="feature-content">
+        <h3>Anaaj Bazaar</h3>
+        <p>Example marketplace shows prices offered by nearby farmers and wholesalers. Plan your sales and get fair pricing for your produce.</p>
+        <p>Includes price trends and insights to make informed decisions.</p>
+      </div>
+    </a>
 
     <div class="feature-box">
       <i data-feather="settings" class="feature-icon"></i>
@@ -192,19 +161,46 @@
     <p>&copy; 2025 KrishiMitra | All Rights Reserved.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
   <script>
     feather.replace();
   </script>
   <script src='https://www.noupe.com/embed/0199f337b02577d2b5a53aa18ef487bab01e.js'></script>
+
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google-translate-element');
+
+      // Filter only Indian languages
+      const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
+      const interval = setInterval(() => {
+        const select = document.querySelector('#google-translate-element select');
+        if (select) {
+          Array.from(select.options).forEach(option => {
+            if (!indianLanguages.includes(option.value)) {
+              option.remove();
+            }
+          });
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script>
+    // Sidebar toggle functionality
+    const sidebar = document.getElementById('language-sidebar');
+    const toggleButton = document.getElementById('toggle-sidebar');
+    toggleButton.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
