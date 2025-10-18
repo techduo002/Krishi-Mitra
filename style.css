@@ -1,6 +1,6 @@
 /* =========================
    GLOBAL RESET & BODY
-========================= */
+================= ======== */
 * {
   margin: 0;
   padding: 0;
@@ -380,3 +380,4 @@ body.dark-mode #contact i {
   .hero-left h1 { font-size: 2rem; }
   .hero-left p { font-size: 1rem; }
 }
+
