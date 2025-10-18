@@ -9,7 +9,7 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   line-height: 1.6;
   color: #333;
-  background-color: #f4f4f4;
+   background: linear-gradient(180deg, #f8fff8, #f2fff2, #ffffff);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -334,3 +334,4 @@ body.dark-mode .contact-form textarea {
     align-items: center;
   }
 }
+
