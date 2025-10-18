@@ -22,43 +22,50 @@
  
 
 
-  <!-- Google Translate Custom Widget -->
-  <div id="google-translate-wrapper">
-    <label for="google-translate-select">Select Language:</label>
-    <div id="google-translate-element"></div>
-  </div>
+<!-- Google Translate Custom Widget -->
+<div id="google-translate-wrapper">
+  <label for="google-translate-select">Select Language:</label>
+  <div id="google-translate-element"></div>
+</div>
 
-  <!-- Google Translate Script -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google-translate-element');
+<!-- Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google-translate-element');
 
-      // Filter only Indian languages + German
-      const filterLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa', 'de'];
-      const interval = setInterval(() => {
-        const select = document.querySelector('#google-translate-element select');
-        if (select) {
-          Array.from(select.options).forEach(option => {
-            if (!filterLanguages.includes(option.value)) {
-              option.remove();
-            }
-          });
-          clearInterval(interval);
+    // Filter only Indian languages
+    const filterLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
+    const select = document.querySelector('#google-translate-element select');
+
+    // Use a MutationObserver or timeout to ensure the select is available
+    if (select) {
+      filterLanguageOptions(select, filterLanguages);
+    } else {
+      const observer = new MutationObserver((mutations, obs) => {
+        const updatedSelect = document.querySelector('#google-translate-element select');
+        if (updatedSelect) {
+          filterLanguageOptions(updatedSelect, filterLanguages);
+          obs.disconnect(); // Stop observing once the select is found
         }
-      }, 100);
+      });
+      observer.observe(document.getElementById('google-translate-element'), { childList: true, subtree: true });
     }
-  </script>
 
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    function filterLanguageOptions(select, allowedLanguages) {
+      Array.from(select.options).forEach(option => {
+        if (!allowedLanguages.includes(option.value)) {
+          option.remove();
+        }
+      });
+    }
+  }
+</script>
 
-</body>
-</html>
-
-
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
   <!-- Header -->
@@ -207,6 +214,7 @@
   <script src='https://www.noupe.com/embed/0199f337b02577d2b5a53aa18ef487bab01e.js'></script>
 </body>
 </html>
+
 
 
 
