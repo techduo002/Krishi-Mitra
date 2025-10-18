@@ -1,226 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anaaj Bazaar – Fair Crop Prices</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Anaaj Bazaar - Real-Time Crop Prices</title>
+
+  <!-- Supabase JS -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
   <style>
-    /* 🌿 Global Design */
     body {
-      font-family: "Poppins", sans-serif;
-      background: #f9f7ff;
+      font-family: 'Poppins', sans-serif;
+      background: #faf8f4;
       color: #222;
       margin: 0;
       padding: 0;
     }
 
-    h1 {
+    header {
+      background: #2e7d32;
+      color: #fff;
+      padding: 16px;
       text-align: center;
-      color: #6b21a8;
-      margin-top: 30px;
-      font-size: 2.2rem;
+      font-size: 1.8em;
+      font-weight: 600;
     }
 
-    p.subtitle {
-      text-align: center;
-      color: #555;
-      margin-top: 10px;
-      font-size: 1rem;
-    }
-
-    /* 🌾 Form Section */
-    form {
-      background: #fff;
-      max-width: 600px;
+    .container {
+      max-width: 800px;
       margin: 30px auto;
-      padding: 25px 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(107, 33, 168, 0.1);
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-    form select,
-    form input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 10px;
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 15px;
-      outline: none;
-      transition: border 0.2s;
-    }
-
-    form select:focus,
-    form input:focus {
-      border-color: #6b21a8;
+      font-size: 1em;
     }
 
     button {
-      background: #6b21a8;
+      background-color: #2e7d32;
       color: white;
-      border: none;
-      padding: 12px 20px;
-      width: 100%;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
     button:hover {
-      background: #581c87;
-    }
-
-    /* 📊 Table Section */
-    h2 {
-      text-align: center;
-      margin-top: 40px;
-      color: #4c1d95;
+      background-color: #256628;
     }
 
     table {
-      width: 90%;
-      margin: 20px auto;
+      width: 100%;
       border-collapse: collapse;
-      background: #fff;
-      box-shadow: 0 2px 15px rgba(107, 33, 168, 0.1);
-      border-radius: 15px;
-      overflow: hidden;
+      margin-top: 25px;
     }
 
     th, td {
-      padding: 14px 12px;
+      border: 1px solid #ccc;
+      padding: 10px;
       text-align: center;
-      border-bottom: 1px solid #eee;
     }
 
     th {
-      background-color: #6b21a8;
-      color: white;
-      text-transform: uppercase;
-      font-size: 0.9rem;
+      background: #e8f5e9;
     }
 
-    tr:hover {
-      background: #f3e8ff;
-    }
-
-    td {
-      color: #333;
-    }
-
-    @media (max-width: 700px) {
-      form, table {
-        width: 95%;
-      }
+    .footer {
+      text-align: center;
+      padding: 10px;
+      color: #555;
     }
   </style>
 </head>
 <body>
+  <header>Anaaj Bazaar 🌾</header>
 
-  <h1>🌾 Anaaj Bazaar</h1>
-  <p class="subtitle">Submit and view real-time crop prices from farmers, experts, and wholesalers.</p>
+  <div class="container">
+    <h2>Submit Crop Price</h2>
+    <form id="priceForm">
+      <select id="role" required>
+        <option value="">Select Role</option>
+        <option value="Farmer">Farmer</option>
+        <option value="Trader">Trader</option>
+      </select>
 
-  <!-- Form for adding new price entries -->
-  <form id="priceForm">
-    <select id="role" required>
-      <option value="">Select Role</option>
-      <option>Farmer</option>
-      <option>Wholesaler</option>
-      <option>Expert</option>
-    </select>
+      <input type="text" id="product" placeholder="Product (e.g., Wheat)" required />
+      <input type="number" id="price" placeholder="Price (₹ per quintal)" required />
+      <input type="text" id="location" placeholder="Location" required />
 
-    <input type="text" id="product" placeholder="Crop Name (e.g. Wheat)" required>
-    <input type="number" id="price" placeholder="Price (₹ per quintal)" required>
-    <input type="text" id="location" placeholder="Location (e.g. Agra)" required>
+      <button type="submit">Submit</button>
+    </form>
 
-    <button type="submit">Submit Price</button>
-  </form>
+    <h2>Latest Market Updates</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Product</th>
+          <th>Price (₹)</th>
+          <th>Location</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="dataBody"></tbody>
+    </table>
+  </div>
 
-  <!-- Table for displaying prices -->
-  <h2>📈 Latest Market Updates</h2>
-  <table id="priceTable">
-    <thead>
-      <tr>
-        <th>Role</th>
-        <th>Crop</th>
-        <th>Price (₹)</th>
-        <th>Location</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div class="footer">
+    Powered by Supabase ⚡
+  </div>
 
   <script>
-    // Initialize Supabase client
-    const { createClient } = supabase;
-    const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
+    // 🧠 Initialize Supabase
+    const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co"; // Replace with your project URL
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your anon key
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const form = document.getElementById("priceForm");
+    const dataBody = document.getElementById("dataBody");
 
-    const form = document.getElementById('priceForm');
-    const tableBody = document.querySelector('#priceTable tbody');
-
-    // Fetch and render prices
-    async function fetchPrices() {
-      const { data, error } = await supabase
-        .from('anaaj_bazaar')
-        .select('*')
-        .order('id', { ascending: false });
-
-      if (error) {
-        console.error("❌ Error fetching data:", error);
-        return;
-      }
-
-      renderTable(data);
-    }
-
-    // Render table rows dynamically
-    function renderTable(prices) {
-      tableBody.innerHTML = '';
-      prices.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${row.role}</td>
-          <td>${row.product}</td>
-          <td>₹${row.price}</td>
-          <td>${row.location}</td>
-          <td>${row.date || ''}</td>
-        `;
-        tableBody.appendChild(tr);
-      });
-    }
-
-    // Handle new entry submissions
-    form.addEventListener('submit', async (e) => {
+    // 📥 Insert Data
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const role = document.getElementById('role').value;
-      const product = document.getElementById('product').value;
-      const price = parseFloat(document.getElementById('price').value);
-      const location = document.getElementById('location').value;
-      const date = new Date().toISOString().split('T')[0];
+      const role = document.getElementById("role").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const price = parseFloat(document.getElementById("price").value);
+      const location = document.getElementById("location").value.trim();
+      const date = new Date().toISOString(); // timestamptz format
 
-      const { error } = await supabase
-        .from('anaaj_bazaar')
-        .insert([{ role, product, price, location, date }]);
+      const { error } = await supabase.from("anaaj_bazaar").insert([
+        { role, product, price, location, date }
+      ]);
 
       if (error) {
-        alert("⚠️ Error submitting price: " + error.message);
+        alert("❌ Error: " + error.message);
       } else {
-        alert("✅ Price submitted successfully!");
         form.reset();
-        fetchPrices();
+        alert("✅ Data added successfully!");
       }
     });
 
-    // Load prices on startup
-    fetchPrices();
+    // 📋 Fetch Initial Data
+    async function fetchData() {
+      const { data, error } = await supabase
+        .from("anaaj_bazaar")
+        .select("*")
+        .order("date", { ascending: false });
+
+      if (error) {
+        console.error(error);
+      } else {
+        dataBody.innerHTML = "";
+        data.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.role}</td>
+            <td>${row.product}</td>
+            <td>₹${row.price}</td>
+            <td>${row.location}</td>
+            <td>${new Date(row.date).toLocaleString()}</td>
+          `;
+          dataBody.appendChild(tr);
+        });
+      }
+    }
+
+    fetchData();
+
+    // 🔁 Real-Time Subscription for new entries
+    supabase
+      .channel('anaaj_bazaar_changes')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'anaaj_bazaar' },
+        payload => {
+          const newRow = payload.new;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${newRow.role}</td>
+            <td>${newRow.product}</td>
+            <td>₹${newRow.price}</td>
+            <td>${newRow.location}</td>
+            <td>${new Date(newRow.date).toLocaleString()}</td>
+          `;
+          dataBody.prepend(tr);
+        }
+      )
+      .subscribe();
   </script>
 </body>
 </html>
