@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,185 +9,178 @@
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-  <!-- Enhanced Sidebar -->
+  <!-- Sidebar with Settings -->
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <h3>Settings</h3>
-      <button id="toggle-sidebar" aria-label="Toggle Sidebar">
+      <button id="toggle-sidebar" class="sidebar-toggle" aria-label="Close Sidebar" aria-expanded="true" aria-controls="sidebar">
         <i data-feather="x"></i>
       </button>
     </div>
-    <ul class="sidebar-menu">
-      <li class="sidebar-item">
-        <i data-feather="globe" class="sidebar-icon"></i>
-        <span>Change Language</span>
-        <div class="sidebar-subcontent">
-          <div id="google-translate-wrapper">
-            <select id="language-select" class="language-select">
-              <!-- Options will be populated by Google Translate -->
-            </select>
+    <nav class="sidebar-nav">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" role="menuitem" tabindex="0" aria-label="Change Language">
+          <i data-feather="globe" class="sidebar-icon"></i>
+          <span>Change Language</span>
+          <div class="sidebar-subcontent">
+            <div id="google-translate-wrapper">
+              <select id="language-select" class="language-select" aria-label="Select Language"></select>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="sidebar-item">
-        <i data-feather="moon" class="sidebar-icon"></i>
-        <span>Theme</span>
-        <div class="sidebar-subcontent">
-          <button id="theme-toggle" class="theme-button">Switch to Dark Mode</button>
-        </div>
-      </li>
-      <li class="sidebar-item">
-        <i data-feather="user" class="sidebar-icon"></i>
-        <span>Profile</span>
-        <div class="sidebar-subcontent">
-          <button onclick="window.location.href='login.html'" class="profile-button">Login / Profile</button>
-        </div>
-      </li>
-    </ul>
+        </li>
+        <li class="sidebar-item" role="menuitem" tabindex="0" aria-label="Toggle Theme">
+          <i data-feather="moon" class="sidebar-icon"></i>
+          <span>Theme</span>
+          <div class="sidebar-subcontent">
+            <button id="theme-toggle" class="theme-button" aria-label="Switch Theme">Switch to Dark Mode</button>
+          </div>
+        </li>
+        <li class="sidebar-item" role="menuitem" tabindex="0" aria-label="Go to Profile">
+          <i data-feather="user" class="sidebar-icon"></i>
+          <span>Profile</span>
+          <div class="sidebar-subcontent">
+            <button onclick="window.location.href='login.html'" class="profile-button" aria-label="Go to Login/Profile">Login / Profile</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
   </aside>
 
-  <!-- Sidebar Toggle Button (Hamburger for opening) -->
-  <button id="open-sidebar" class="open-sidebar-btn" aria-label="Open Sidebar">
+  <!-- Sidebar Toggle Button -->
+  <button id="open-sidebar" class="open-sidebar-btn" aria-label="Open Sidebar" aria-expanded="false" aria-controls="sidebar">
     <i data-feather="menu"></i>
   </button>
 
-  <!-- Header -->
-  <header id="header" class="fade-in">
-    <div class="logo-placeholder"></div>
-    <h1 class="header-title">KrishiMitra</h1>
-  </header>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-placeholder"></div>
+      <h1 class="header-title">KrishiMitra</h1>
+    </header>
 
-  <!-- Navbar -->
-  <nav id="navbar" class="fade-in">
-    <a href="#hero">Home</a>
-    <a href="#features">Features</a>
-    <a href="#market">Marketplace</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+      <a href="#hero">Home</a>
+      <a href="#features">Features</a>
+      <a href="#market">Marketplace</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-  <!-- Hero Section -->
-  <section id="hero" class="hero fade-in">
-    <div class="hero-left">
-      <h1>KrishiMitra</h1>
-      <p>Your digital companion from sowing to selling. Empowering Indian farmers with AI insights, crop recommendations, and market guidance.</p>
-      <button onclick="window.location.href='login.html'" class="btn-primary">Let’s Grow</button>
-    </div>
-    <div class="hero-right">
-      <img src="farmer.jpg" alt="Farmer Illustration" class="hero-illustration">
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features" class="features fade-in">
-    <h2>Our Key Features</h2>
-
-    <div class="feature-box">
-      <i data-feather="activity" class="feature-icon"></i>
-      <div class="feature-content">
-        <h3>Rogi Scan</h3>
-        <p>Detect crop diseases instantly by uploading an image of the affected leaf. Our AI provides the disease name, cause, and treatment suggestions to prevent crop loss.</p>
-        <p>Supports multiple crops including Wheat, Rice, Cotton, Maize, and Sugarcane.</p>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="hero-left">
+        <h1>KrishiMitra</h1>
+        <p>Your digital companion from sowing to selling. Empowering Indian farmers with AI insights, crop recommendations, and market guidance.</p>
+        <button onclick="window.location.href='login.html'" class="btn-primary">Let’s Grow</button>
       </div>
-    </div>
-
-    <div class="feature-box">
-      <i data-feather="message-circle" class="feature-icon"></i>
-      <div class="feature-content">
-        <h3>Kisan Sathi</h3>
-        <p>Ask farming questions in Hindi or English and get instant guidance on fertilizers, crop care, and pest control via our AI chatbot.</p>
-        <p>Optional voice interaction available for easy accessibility in rural areas.</p>
+      <div class="hero-right">
+        <img src="farmer.jpg" alt="Farmer Illustration" class="hero-illustration">
       </div>
-    </div>
+    </section>
 
-    <div class="feature-box">
-      <i data-feather="sun" class="feature-icon"></i>
-      <div class="feature-content">
-        <h3>Beej Setu</h3>
-        <p>Get crop recommendations based on soil type, local weather, and seasonal data. Optimize yield and avoid crop failures.</p>
-        <p>Smart AI suggestions for best crops to grow in your region and season.</p>
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <h2>Our Key Features</h2>
+      <div class="feature-grid">
+        <div class="feature-box">
+          <i data-feather="activity" class="feature-icon"></i>
+          <div class="feature-content">
+            <h3>Rogi Scan</h3>
+            <p>Detect crop diseases instantly by uploading an image of the affected leaf. Our AI provides the disease name, cause, and treatment suggestions to prevent crop loss.</p>
+            <p>Supports multiple crops including Wheat, Rice, Cotton, Maize, and Sugarcane.</p>
+          </div>
+        </div>
+        <div class="feature-box">
+          <i data-feather="message-circle" class="feature-icon"></i>
+          <div class="feature-content">
+            <h3>Kisan Sathi</h3>
+            <p>Ask farming questions in Hindi or English and get instant guidance on fertilizers, crop care, and pest control via our AI chatbot.</p>
+            <p>Optional voice interaction available for easy accessibility in rural areas.</p>
+          </div>
+        </div>
+        <div class="feature-box">
+          <i data-feather="sun" class="feature-icon"></i>
+          <div class="feature-content">
+            <h3>Beej Setu</h3>
+            <p>Get crop recommendations based on soil type, local weather, and seasonal data. Optimize yield and avoid crop failures.</p>
+            <p>Smart AI suggestions for best crops to grow in your region and season.</p>
+          </div>
+        </div>
+        <a href="anaaj_bazaar.html" class="feature-box">
+          <i data-feather="shopping-bag" class="feature-icon"></i>
+          <div class="feature-content">
+            <h3>Anaaj Bazaar</h3>
+            <p>Example marketplace shows prices offered by nearby farmers and wholesalers. Plan your sales and get fair pricing for your produce.</p>
+            <p>Includes price trends and insights to make informed decisions.</p>
+          </div>
+        </a>
+        <div class="feature-box">
+          <i data-feather="settings" class="feature-icon"></i>
+          <div class="feature-content">
+            <h3>YantraMitra</h3>
+            <p>Find tractors, harvesters, and other farming tools for rent nearby. Saves time, effort, and reduces investment costs for equipment.</p>
+            <p>Ensures you always have the right machinery when you need it for every stage of cultivation.</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <a href="anaaj_bazaar.html" class="feature-box" style="text-decoration: none; color: inherit;">
-      <i data-feather="shopping-bag" class="feature-icon"></i>
-      <div class="feature-content">
-        <h3>Anaaj Bazaar</h3>
-        <p>Example marketplace shows prices offered by nearby farmers and wholesalers. Plan your sales and get fair pricing for your produce.</p>
-        <p>Includes price trends and insights to make informed decisions.</p>
+    <!-- Marketplace Demo Section -->
+    <section id="market" class="market">
+      <h2>Marketplace Demo</h2>
+      <p>Example of crop prices offered by farmers and wholesalers in your area.</p>
+      <div class="market-cards">
+        <div class="market-card">
+          <h4>Farmer A</h4>
+          <p>Wheat - ₹2200/qtl</p>
+        </div>
+        <div class="market-card">
+          <h4>Wholesaler B</h4>
+          <p>Rice - ₹1850/qtl</p>
+        </div>
+        <div class="market-card">
+          <h4>Farmer C</h4>
+          <p>Maize - ₹1600/qtl</p>
+        </div>
       </div>
-    </a>
+    </section>
 
-    <div class="feature-box">
-      <i data-feather="settings" class="feature-icon"></i>
-      <div class="feature-content">
-        <h3>YantraMitra</h3>
-        <p>Find tractors, harvesters, and other farming tools for rent nearby. Saves time, effort, and reduces investment costs for equipment.</p>
-        <p>Ensures you always have the right machinery when you need it for every stage of cultivation.</p>
-      </div>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+      <h2>About KrishiMitra</h2>
+      <p>KrishiMitra empowers Indian farmers with smart tools for crop selection, disease detection, AI chatbot assistance, and marketplace insights. We make farming smarter, sustainable, and more profitable.</p>
+    </section>
 
-  <!-- Marketplace Demo Section -->
-  <section id="market" class="market fade-in">
-    <h2>Marketplace Demo</h2>
-    <p>Example of crop prices offered by farmers and wholesalers in your area.</p>
-
-    <div class="market-cards">
-      <div class="market-card">
-        <h4>Farmer A</h4>
-        <p>Wheat - ₹2200/qtl</p>
-      </div>
-      <div class="market-card">
-        <h4>Wholesaler B</h4>
-        <p>Rice - ₹1850/qtl</p>
-      </div>
-      <div class="market-card">
-        <h4>Farmer C</h4>
-        <p>Maize - ₹1600/qtl</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about fade-in">
-    <h2>About KrishiMitra</h2>
-    <p>KrishiMitra empowers Indian farmers with smart tools for crop selection, disease detection, AI chatbot assistance, and marketplace insights. We make farming smarter, sustainable, and more profitable.</p>
-  </section>
-
-  <!-- Contact / Footer Section -->
-  <footer id="contact" class="fade-in">
-    <h2>Contact Us</h2>
-    <p>Have a question, feedback, or partnership idea? We’d love to hear from you!</p>
-
-    <form name="contact" method="POST" data-netlify="true" class="contact-form">
-      <input type="hidden" name="form-name" value="contact">
-
-      <p>
-        <label><i data-feather="user"></i> Name<br>
-          <input type="text" name="name" required placeholder="Enter your name">
-        </label>
-      </p>
-
-      <p>
-        <label><i data-feather="mail"></i> Email<br>
-          <input type="email" name="email" required placeholder="Enter your email">
-        </label>
-      </p>
-
-      <p>
-        <label><i data-feather="message-square"></i> Message<br>
-          <textarea name="message" rows="5" required placeholder="Your message..."></textarea>
-        </label>
-      </p>
-
-      <p>
-        <button type="submit" class="btn-primary">Send Message</button>
-      </p>
-    </form>
-
-    <p>&copy; 2025 KrishiMitra | All Rights Reserved.</p>
-  </footer>
+    <!-- Contact / Footer Section -->
+    <footer id="contact">
+      <h2>Contact Us</h2>
+      <p>Have a question, feedback, or partnership idea? We’d love to hear from you!</p>
+      <form name="contact" method="POST" data-netlify="true" class="contact-form">
+        <input type="hidden" name="form-name" value="contact">
+        <p>
+          <label><i data-feather="user"></i> Name<br>
+            <input type="text" name="name" required placeholder="Enter your name">
+          </label>
+        </p>
+        <p>
+          <label><i data-feather="mail"></i> Email<br>
+            <input type="email" name="email" required placeholder="Enter your email">
+          </label>
+        </p>
+        <p>
+          <label><i data-feather="message-square"></i> Message<br>
+            <textarea name="message" rows="5" required placeholder="Your message..."></textarea>
+          </label>
+        </p>
+        <p>
+          <button type="submit" class="btn-primary">Send Message</button>
+        </p>
+      </form>
+      <p>&copy; 2025 KrishiMitra | All Rights Reserved.</p>
+    </footer>
+  </main>
 
   <!-- Scripts -->
   <script src="script.js"></script>
@@ -198,7 +189,7 @@
   </script>
   <script src='https://www.noupe.com/embed/0199f337b02577d2b5a53aa18ef487bab01e.js'></script>
 
-  <!-- Google Translate Script -->
+  <!-- Google Translate and Sidebar Script -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -207,7 +198,6 @@
         autoDisplay: false
       }, 'google-translate-element');
 
-      // Move the select to our custom element
       const interval = setInterval(() => {
         const originalSelect = document.querySelector('.goog-te-combo');
         if (originalSelect) {
@@ -218,50 +208,90 @@
           });
           originalSelect.style.display = 'none';
           clearInterval(interval);
-        }
-      }, 100);
 
-      // Filter only Indian languages
-      const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
-      const filterInterval = setInterval(() => {
-        const select = document.getElementById('language-select');
-        if (select) {
-          Array.from(select.options).forEach(option => {
+          // Filter only Indian languages
+          const indianLanguages = ['hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'ml', 'or', 'pa'];
+          Array.from(customSelect.options).forEach(option => {
             if (!indianLanguages.includes(option.value) && option.value !== '') {
               option.remove();
             }
           });
-          clearInterval(filterInterval);
         }
       }, 100);
     }
-
-    // Smooth language change
-    document.addEventListener('DOMContentLoaded', () => {
-      const languageSelect = document.getElementById('language-select');
-      languageSelect.addEventListener('change', (e) => {
-        document.body.classList.add('translating');
-        setTimeout(() => {
-          document.body.classList.remove('translating');
-        }, 500); // Match transition duration
-      });
-    });
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>
-    // Sidebar toggle
-    const sidebar = document.getElementById('sidebar');
-    const openBtn = document.getElementById('open-sidebar');
-    const closeBtn = document.getElementById('toggle-sidebar');
-    openBtn.addEventListener('click', () => sidebar.classList.add('open'));
-    closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+    // Sidebar and Theme Management
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('sidebar');
+      const openBtn = document.getElementById('open-sidebar');
+      const closeBtn = document.getElementById('toggle-sidebar');
+      const themeToggle = document.getElementById('theme-toggle');
+      let isSidebarOpen = false;
 
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      themeToggle.textContent = document.body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      // Sidebar Toggle
+      function toggleSidebar() {
+        isSidebarOpen = !isSidebarOpen;
+        sidebar.classList.toggle('open', isSidebarOpen);
+        document.body.classList.toggle('sidebar-open', isSidebarOpen);
+        openBtn.setAttribute('aria-expanded', isSidebarOpen.toString());
+        closeBtn.setAttribute('aria-expanded', isSidebarOpen.toString());
+        if (isSidebarOpen) {
+          document.getElementById('language-select').focus();
+        } else {
+          openBtn.focus();
+        }
+      }
+
+      openBtn.addEventListener('click', toggleSidebar);
+      closeBtn.addEventListener('click', toggleSidebar);
+      openBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleSidebar();
+        }
+      });
+      closeBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleSidebar();
+        }
+      });
+
+      // Theme Toggle
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        themeToggle.textContent = document.body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      });
+
+      // Focus Trap
+      function trapFocus(event) {
+        if (event.key === 'Tab') {
+          const focusable = sidebar.querySelectorAll('button, select, [tabindex]:not([tabindex="-1"])');
+          const firstElement = focusable[0];
+          const lastElement = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          } else if (!event.shiftKey && document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+
+      sidebar.addEventListener('keydown', trapFocus);
+    });
+
+    // Smooth Scroll for Navbar Links
+    document.querySelectorAll('#navbar a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
     });
   </script>
 </body>
