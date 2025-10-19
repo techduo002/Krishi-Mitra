@@ -1,159 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beej Setu | Smart Crop Recommendations</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'farm-green': {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              200: '#bbf7d0',
-              300: '#86efac',
-              400: '#4ade80',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              900: '#14532d'
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beej Setu | Smart Crop Recommendations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'farm-green': {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                }
             }
-          },
-          animation: {
-            'float': 'float 6s ease-in-out infinite',
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'gradient': 'gradient 15s ease infinite',
-            'slide-up': 'slideUp 0.8s ease-out',
-            'fade-in': 'fadeIn 1s ease-out',
-            'morph': 'morph 8s ease-in-out infinite',
-            'bounce-slow': 'bounce 3s infinite',
-          },
         }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="beej_setu.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="beej_setu.js"></script>
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="beej_setu.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="beej_setu.js"></script>
 </head>
-<body class="min-h-screen gradient-bg text-gray-800 overflow-x-hidden">
-  <!-- Floating Elements -->
-  <div class="floating-elements">
-    <div class="floating-shape w-64 h-64 morphing-blob"></div>
-    <div class="floating-shape w-48 h-48 morphing-blob"></div>
-    <div class="floating-shape w-32 h-32 morphing-blob"></div>
-  </div>
-
-  <!-- Main Content -->
-  <section class="relative py-24 px-6">
-    <div class="container mx-auto max-w-2xl relative z-10">
-      <div class="glass rounded-2xl p-8 shadow-lg card-hover">
-        <div class="text-center mb-8 animate-slide-up">
-          <h2 class="text-4xl font-bold font-poppins text-gradient">🌱 Beej Setu</h2>
-          <p class="text-xl text-gray-600 mt-4 font-inter">
-            Get AI-powered crop recommendations tailored to your soil and climate.
-          </p>
+<body class="min-h-screen gradient-bg text-gray-800 overflow-x-hidden leaf-pattern">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" aria-label="Sidebar Navigation">
+        <div class="sidebar-header">
+            <h3 data-translate="settings">Settings</h3>
+            <button id="toggle-sidebar" class="sidebar-toggle" aria-label="Close Sidebar">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" tabindex="0">
+                    <i class="fas fa-globe"></i>
+                    <span data-translate="language">Language</span>
+                    <div class="sidebar-subcontent">
+                        <select id="language-select">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="sidebar-item" tabindex="0">
+                    <i class="fas fa-moon"></i>
+                    <span data-translate="theme">Theme</span>
+                    <div class="sidebar-subcontent">
+                        <button id="theme-toggle" data-translate="dark_mode">Dark Mode</button>
+                    </div>
+                </li>
+                <li class="sidebar-item" tabindex="0">
+                    <i class="fas fa-user"></i>
+                    <span data-translate="profile">Profile</span>
+                    <div class="sidebar-subcontent">
+                        <button onclick="location.href='login.html'" data-translate="login_profile">Login / Profile</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-        <!-- Beej Setu Form -->
-        <form id="beejForm" class="space-y-6">
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Farmer Name</label>
-            <input id="farmer_name" type="text" required
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-          </div>
+    <!-- Sidebar toggle -->
+    <button id="open-sidebar" class="open-sidebar-btn" aria-label="Open Sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
 
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Crop Name</label>
-            <input id="crop_name" type="text" required
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-          </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 transform" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="glass rounded-2xl px-6 py-3 shadow-lg">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-xl white-gradient flex items-center justify-center shadow-lg">
+                            <img src="logo.png" alt="Beej Setu Logo" class="w-8 h-8">
+                        </div>
+                        <span class="text-2xl font-bold font-poppins text-gradient">Beej Setu</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html#home" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Home</a>
+                        <a href="index.html#features" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Features</a>
+                        <a href="index.html#market" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Marketplace</a>
+                        <a href="index.html#about" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">About</a>
+                        <a href="index.html#contact" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Contact</a>
+                        <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
+                            Let’s Grow
+                        </a>
+                    </div>
+                    <button id="mobile-menu-toggle" class="md:hidden text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Soil pH</label>
-            <input id="soil_ph" type="number" step="0.01" placeholder="e.g. 6.5"
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-          </div>
-
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Soil Type</label>
-            <select id="soil_type"
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-              <option value="">Select</option>
-              <option value="Sandy">Sandy</option>
-              <option value="Loamy">Loamy</option>
-              <option value="Clay">Clay</option>
-              <option value="Silty">Silty</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Rainfall (mm)</label>
-            <input id="rainfall" type="number" step="0.1"
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-          </div>
-
-          <div>
-            <label class="block text-gray-700 mb-2 font-medium font-inter">Location</label>
-            <input id="location" type="text" placeholder="e.g. Greater Noida"
-              class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
-          </div>
-
-          <button type="submit"
-            class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all duration-300 hover-lift">
-            <i class="fas fa-seedling mr-2"></i> Submit Details
-          </button>
-        </form>
-
-        <p id="status" class="text-center mt-6 font-medium font-inter"></p>
-        <div id="recommendations" class="mt-8 overflow-y-auto max-h-96"></div>
-      </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
+        <div class="glass min-h-screen flex flex-col justify-center items-center space-y-8">
+            <a href="index.html#home" class="text-2xl font-semibold text-farm-green-800 hover:text-farm-green-600 transition-colors">Home</a>
+            <a href="index.html#features" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Features</a>
+            <a href="index.html#market" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Marketplace</a>
+            <a href="index.html#about" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">About</a>
+            <a href="index.html#contact" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Contact</a>
+            <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
+                Let’s Grow
+            </a>
+        </div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator hidden md:block">
-      <div class="w-6 h-10 border-2 border-farm-green-500 rounded-full flex justify-center">
-        <div class="w-1 h-3 bg-farm-green-500 rounded-full mt-2 animate-pulse"></div>
-      </div>
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-shape w-64 h-64 morphing-blob"></div>
+        <div class="floating-shape w-48 h-48 morphing-blob"></div>
+        <div class="floating-shape w-32 h-32 morphing-blob"></div>
     </div>
-  </section>
 
-  <script>
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    <!-- Main Content -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden gradient-bg">
+        <div class="container mx-auto max-w-2xl relative z-10">
+            <div class="interactive-card">
+                <div class="card-inner glass rounded-2xl p-8 shadow-lg card-hover border border-farm-green-100">
+                    <div class="text-center mb-8 animate-slide-up">
+                        <div class="inline-flex items-center px-4 py-2 glass-green rounded-full text-sm font-medium text-farm-green-700 mb-6">
+                            <span class="w-2 h-2 bg-farm-green-500 rounded-full mr-2 animate-pulse"></span>
+                            Smart Crop Recommendations
+                        </div>
+                        <h2 class="text-4xl lg:text-5xl font-bold font-poppins text-gradient">🌱 Beej Setu</h2>
+                        <p class="text-xl text-gray-600 mt-4 font-inter">Get AI-powered crop recommendations tailored to your soil and climate.</p>
+                    </div>
+                    <!-- Beej Setu Form -->
+                    <form id="beejForm" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Farmer Name</label>
+                            <input id="farmer_name" type="text" required class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Crop Name</label>
+                            <input id="crop_name" type="text" required class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Soil pH</label>
+                            <input id="soil_ph" type="number" step="0.01" placeholder="e.g. 6.5" class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Soil Type</label>
+                            <select id="soil_type" class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                                <option value="">Select</option>
+                                <option value="Sandy">Sandy</option>
+                                <option value="Loamy">Loamy</option>
+                                <option value="Clay">Clay</option>
+                                <option value="Silty">Silty</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Rainfall (mm)</label>
+                            <input id="rainfall" type="number" step="0.1" class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 font-medium font-inter">Location</label>
+                            <input id="location" type="text" placeholder="e.g. Greater Noida" class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 placeholder-gray-500 border border-farm-green-200 focus:border-farm-green-400 outline-none glass-green">
+                        </div>
+                        <button type="submit" class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all duration-300 hover-lift">
+                            <i class="fas fa-seedling mr-2"></i> Submit Details
+                        </button>
+                    </form>
+                    <p id="status" class="text-center mt-6 font-medium font-inter"></p>
+                    <div id="recommendations" class="mt-8 overflow-y-auto max-h-96"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator hidden md:block">
+            <div class="w-6 h-10 border-2 border-farm-green-500 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-farm-green-500 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationDelay = '0s';
-          entry.target.classList.add('animate-slide-up');
-        }
-      });
-    }, observerOptions);
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-16 px-6 relative">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="col-span-1 lg:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 rounded-2xl white-gradient flex items-center justify-center shadow-lg mr-4">
+                            <img src="logo.png" alt="Beej Setu Logo" class="w-10 h-10">
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-bold font-poppins text-gradient">Beej Setu</h3>
+                            <p class="text-gray-400">Smart Crop Recommendations</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-8 max-w-md">
+                        Get tailored crop recommendations using AI to maximize your yield based on soil and climate data.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-farm-green-600 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-farm-green-600 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-gray-800 hover:bg-farm-green-600 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="index.html#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="index.html#market" class="text-gray-400 hover:text-white transition-colors">Marketplace</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>FAQ</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms of Service</li>
+                        <li>Help Center</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-16 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-center md:text-left mb-4 md:mb-0">
+                        &copy; 2025 Beej Setu | All Rights Reserved.
+                    </p>
+                    <div class="flex items-center space-x-6 text-sm text-gray-400">
+                        <span class="flex items-center">
+                            <i class="fas fa-shield-alt text-farm-green-400 mr-2"></i>
+                            Secured by SSL
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    document.querySelectorAll('.glass').forEach(card => {
-      observer.observe(card);
-    });
+    <script>
+        // Sidebar Toggle
+        const openSidebarBtn = document.getElementById('open-sidebar');
+        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+        const sidebar = document.getElementById('sidebar');
 
-    // Parallax effect for floating shapes
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const shapes = document.querySelectorAll('.floating-shape');
+        openSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
 
-      shapes.forEach((shape, index) => {
-        const speed = (index + 1) * 0.3;
-        shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
-      });
-    });
-  </script>
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on links
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar background change on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.85)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('animate-slide-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe interactive cards
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Parallax effect for floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+
+        // Enhanced card tilt effect
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.querySelector('.card-inner').style.transform = 
+                    `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('.card-inner').style.transform = 
+                    'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+    </script>
 </body>
 </html>
