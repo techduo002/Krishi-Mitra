@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | KrishiMitra</title>
+  <link rel="stylesheet" href="contact.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="contact-wrapper">
+    <div class="contact-card">
+      <h1>Contact Us</h1>
+      <p>We’d love to hear from you! Please fill out this form and we’ll get in touch soon.</p>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="responseMsg"></p>
+    </div>
+  </div>
+
+  <script src="contact.js"></script>
+</body>
+</html>
