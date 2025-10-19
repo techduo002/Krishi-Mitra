@@ -623,27 +623,87 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-24 px-6 relative overflow-hidden green-gradient">
-        <div class="container mx-auto relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl lg:text-6xl font-bold font-poppins mb-8 text-white">
-                    <span class="text-yellow-300">Get in Touch</span><br>
-                    We're Here to Help
-                </h2>
-                <p class="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed">
-                    Have questions? Our team is ready to assist you with any farming or app-related queries.
-                </p>
-                
-                <form name="contact" method="POST" data-netlify="true" class="glass-green rounded-2xl p-8 max-w-2xl mx-auto border border-white/20">
-                    <input type="hidden" name="form-name" value="contact">
-                    <div class="space-y-6">
-                        <input type="text" name="name" placeholder="Your Name" class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required>
-                        <input type="email" name="email" placeholder="Your Email" class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required>
-                        <textarea name="message" rows="5" placeholder="Your Message..." class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required></textarea>
-                        <button type="submit" class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all">Send Message</button>
-                    </div>
-                </form>
+  <div class="container mx-auto relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl lg:text-6xl font-bold font-poppins mb-8 text-white">
+        <span class="text-yellow-300">Get in Touch</span><br>
+        We're Here to Help
+      </h2>
+      <p class="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed">
+        Have questions? Our team is ready to assist you with any farming or app-related queries.
+      </p>
+
+      <!-- ✅ Supabase Contact Form -->
+      <form id="contactForm"
+        class="glass-green rounded-2xl p-8 max-w-2xl mx-auto border border-white/20">
+        <div class="space-y-6">
+          <input type="text" id="name" name="name" placeholder="Your Name"
+            class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none"
+            required>
+          <input type="email" id="email" name="email" placeholder="Your Email"
+            class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none"
+            required>
+          <textarea id="message" name="message" rows="5" placeholder="Your Message..."
+            class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none"
+            required></textarea>
+
+          <button type="submit"
+            class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all">
+            Send Message
+          </button>
+
+          <p id="responseMsg" class="text-lg mt-4 text-white/90"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ Supabase Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // 🔑 Replace with your own credentials
+    const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById("contactForm");
+    const responseMsg = document.getElementById("responseMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      responseMsg.textContent = "Sending...";
+      responseMsg.style.color = "#fff";
+
+      if (!name || !email || !message) {
+        responseMsg.textContent = "⚠️ Please fill out all fields.";
+        responseMsg.style.color = "#ffd166";
+        return;
+      }
+
+      const { error } = await supabaseClient
+        .from("contact_messages")
+        .insert([{ name, email, message }]);
+
+      if (error) {
+        console.error(error);
+        responseMsg.textContent = "❌ Error sending message. Try again later.";
+        responseMsg.style.color = "#ffb4b4";
+      } else {
+        responseMsg.textContent = "✅ Message sent successfully!";
+        responseMsg.style.color = "#baf8ba";
+        form.reset();
+      }
+    });
+  </script>
+</section>
+
                 
                 <div class="mt-12 flex flex-wrap justify-center gap-8">
                     <div class="flex items-center text-white/90">
@@ -843,5 +903,6 @@
     <script src='https://www.noupe.com/embed/0199faada1827522bf0e33d4ea5d7c76153c.js'></script>
 </body>
 </html>
+
 
 
