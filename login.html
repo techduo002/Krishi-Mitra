@@ -1,57 +1,353 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KrishiMitra | Login</title>
-  <link rel="stylesheet" href="login.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KrishiMitra - Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+'farm-green': {
+50: '#f0fdf4',
+100: '#dcfce7',
+200: '#bbf7d0',
+300: '#86efac',
+400: '#4ade80',
+500: '#22c55e',
+600: '#16a34a',
+700: '#15803d',
+800: '#166534',
+900: '#14532d'
+}
+},
+animation: {
+'float': 'float 6s ease-in-out infinite',
+'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+'gradient': 'gradient 15s ease infinite',
+'slide-up': 'slideUp 0.8s ease-out',
+'fade-in': 'fadeIn 1s ease-out',
+'morph': 'morph 8s ease-in-out infinite',
+'bounce-slow': 'bounce 3s infinite',
+},
+}
+}
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* {
+font-family: 'Inter', sans-serif;
+}
+
+.font-poppins { font-family: 'Poppins', sans-serif; }
+
+@keyframes float {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+@keyframes slideUp {
+from { transform: translateY(80px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.glass {
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(34, 197, 94, 0.1);
+box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-green {
+background: rgba(34, 197, 94, 0.1);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.gradient-bg {
+background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+}
+
+.green-gradient {
+background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+}
+
+.text-gradient {
+background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #4ade80 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hover-lift {
+transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+transform: translateY(-5px);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.leaf-pattern {
+background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.floating-elements {
+position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+z-index: 0;
+}
+
+.floating-shape {
+position: absolute;
+opacity: 0.1;
+animation: float 8s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+top: 10%;
+left: 10%;
+animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+top: 30%;
+right: 15%;
+animation-delay: 2s;
+}
+
+.morphing-blob {
+animation: morph 12s ease-in-out infinite;
+background: linear-gradient(45deg, #22c55e, #4ade80);
+opacity: 0.08;
+}
+
+/* Login Specific Styles */
+.login-container {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 2rem;
+background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+position: relative;
+overflow: hidden;
+}
+
+.login-card {
+width: 100%;
+max-width: 500px;
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(34, 197, 94, 0.2);
+border-radius: 2rem;
+padding: 3rem;
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+position: relative;
+z-index: 10;
+}
+
+.form-group {
+position: relative;
+margin-bottom: 1.5rem;
+}
+
+.form-group i {
+position: absolute;
+left: 1rem;
+top: 50%;
+transform: translateY(-50%);
+color: #16a34a;
+font-size: 1.1rem;
+z-index: 2;
+}
+
+.form-group input {
+width: 100%;
+padding: 1rem 1rem 1rem 3rem;
+border: 2px solid #e5e7eb;
+border-radius: 1rem;
+font-size: 1rem;
+transition: all 0.3s ease;
+background: white;
+}
+
+.form-group input:focus {
+outline: none;
+border-color: #22c55e;
+box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.login-btn {
+width: 100%;
+padding: 1rem;
+background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+color: white;
+border: none;
+border-radius: 1rem;
+font-size: 1.1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+margin-top: 1rem;
+}
+
+.login-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3);
+}
+
+.signup-link {
+text-align: center;
+margin-top: 1.5rem;
+color: #6b7280;
+}
+
+.signup-link a {
+color: #22c55e;
+text-decoration: none;
+font-weight: 600;
+}
+
+.signup-link a:hover {
+text-decoration: underline;
+}
+
+.logo-section {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.logo-section img {
+width: 60px;
+height: 60px;
+margin-bottom: 1rem;
+}
+
+.logo-title {
+font-size: 2.5rem;
+font-weight: 800;
+background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #4ade80 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+margin-bottom: 0.5rem;
+}
+
+@media (max-width: 640px) {
+.login-card {
+padding: 2rem;
+margin: 1rem;
+}
+}
+</style>
 </head>
-<body>
+<body class="gradient-bg">
 
-  <div class="login-container">
+<!-- Floating Elements -->
+<div class="floating-elements">
+<div class="floating-shape w-64 h-64 morphing-blob"></div>
+<div class="floating-shape w-48 h-48 morphing-blob"></div>
+<div class="floating-shape w-32 h-32 morphing-blob"></div>
+</div>
 
-    <!-- Left Panel -->
-    <div class="left-panel">
-      <div class="overlay">
-        <h1>Welcome Back to <span>KrishiMitra</span></h1>
-        <p>Empowering Indian Farmers with Innovation & Growth.</p>
+<div class="login-container">
+<div class="login-card animate-slide-up">
+<!-- Logo Section -->
+<div class="logo-section">
+<img src="logo.png" alt="KrishiMitra Logo" class="mx-auto rounded-xl shadow-lg">
+<h1 class="logo-title font-poppins">KrishiMitra</h1>
+<p class="text-gray-600 text-center mb-6">Welcome Back</p>
+</div>
 
-        <div class="features">
-          <div><i class="fa-solid fa-seedling"></i> Smart Crop Suggestions</div>
-          <div><i class="fa-solid fa-cloud-sun"></i> Weather-based Insights</div>
-          <div><i class="fa-solid fa-store"></i> Anaaj Bazaar Access</div>
-        </div>
-      </div>
-    </div>
+<!-- Login Form -->
+<form id="loginForm">
+<div class="form-group">
+<i class="fas fa-envelope"></i>
+<input type="email" id="email" placeholder="Email Address" required>
+</div>
 
-    <!-- Right Panel -->
-    <div class="right-panel">
-      <div class="form-box">
-        <h2>Login</h2>
-        <p class="subtitle">Continue your KrishiMitra journey</p>
+<div class="form-group">
+<i class="fas fa-lock"></i>
+<input type="password" id="password" placeholder="Password" required>
+</div>
 
-        <div class="input-group">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="email" placeholder="Email Address" required />
-        </div>
+<button type="submit" class="login-btn hover-lift">
+<i class="fas fa-sign-in-alt mr-2"></i>
+Sign In
+</button>
+</form>
 
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="password" placeholder="Password" required />
-        </div>
+<!-- Signup Link -->
+<div class="signup-link">
+Don't have an account? <a href="signup.html">Sign up here</a>
+</div>
 
-        <button onclick="loginUser()">Login</button>
+<!-- Demo Credentials -->
+<div class="mt-6 p-3 bg-farm-green-50 rounded-lg border border-farm-green-100">
+<p class="text-sm text-farm-green-700 text-center">
+<i class="fas fa-info-circle mr-1"></i>
+Demo: Email: <strong>demo@krishimitra.com</strong> | Password: <strong>demo123</strong>
+</p>
+</div>
+</div>
+</div>
 
-        <p class="signup-text">
-          Don’t have an account? <a href="signup.html">Sign up here</a>
-        </p>
-      </div>
-    </div>
-  </div>
+<script>
+// Supabase Configuration
+const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
 
-  <script src="login.js"></script>
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Login Form Handler
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+
+const email = document.getElementById('email').value.trim();
+const password = document.getElementById('password').value.trim();
+const loginBtn = e.target.querySelector('button[type="submit"]');
+
+loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Signing In...';
+loginBtn.disabled = true;
+
+try {
+const { data, error } = await supabase.auth.signInWithPassword({
+email,
+password
+});
+
+if (error) {
+alert('Login failed: ' + error.message);
+} else {
+window.location.href = 'dashboard.html'; // Redirect to dashboard
+}
+} catch (err) {
+alert('An error occurred. Please try again.');
+} finally {
+loginBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Sign In';
+loginBtn.disabled = false;
+}
+});
+
+// Demo Login
+document.querySelector('.bg-farm-green-50').addEventListener('click', async () => {
+document.getElementById('email').value = 'demo@krishimitra.com';
+document.getElementById('password').value = 'demo123';
+document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+});
+</script>
 </body>
 </html>
