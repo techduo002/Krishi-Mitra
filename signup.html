@@ -647,70 +647,7 @@
       }
     });
 
-    // SUPABASE CONFIG
-    const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
-
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // SIGNUP FORM
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const fullname = document.getElementById('fullname').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const selectedRole = document.querySelector('.role-dropdown .selected').textContent;
-      const signupBtn = e.target.querySelector('button[type="submit"]');
-      const errorMsg = document.getElementById('errorMsg');
-
-      errorMsg.classList.add('hidden');
-
-      // Validation
-      if (selectedRole === 'Select Role') {
-        errorMsg.textContent = 'Please select your role';
-        errorMsg.classList.remove('hidden');
-        return;
-      }
-
-      signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Creating Account...';
-      signupBtn.disabled = true;
-
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: fullname,
-              role: selectedRole
-            }
-          }
-        });
-
-        if (error) {
-          errorMsg.textContent = error.message;
-          errorMsg.classList.remove('hidden');
-        } else {
-          errorMsg.textContent = 'Account created successfully! Please check your email for verification.';
-          errorMsg.classList.remove('hidden');
-          errorMsg.style.color = '#16a34a';
-          document.getElementById('signupForm').reset();
-          document.querySelector('.role-dropdown .selected').textContent = 'Select Role';
-          
-          // Redirect to login after 3 seconds
-          setTimeout(() => {
-            window.location.href = 'login.html';
-          }, 3000);
-        }
-      } catch (err) {
-        errorMsg.textContent = 'An error occurred. Please try again.';
-        errorMsg.classList.remove('hidden');
-      } finally {
-        signupBtn.innerHTML = '<i class="fas fa-user-plus mr-2"></i> Create Account';
-        signupBtn.disabled = false;
-      }
-    });
+    
 
     // Navbar background change on scroll
     const navbar = document.getElementById('navbar');
