@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiMitra - Rogi Scan</title>
+</head>
+<body>
+  <h1>KrishiMitra - Plant Disease Scanner</h1>
+  <input type="file" id="imageInput" />
+  <button id="classifyBtn">Classify</button>
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById("classifyBtn").onclick = async () => {
+      const file = document.getElementById("imageInput").files[0];
+      if (!file) return alert("Select an image");
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Image = reader.result.split(",")[1];
+
+        const res = await fetch("https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/hf_image_classification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageBase64: base64Image })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      };
+
+      reader.readAsDataURL(file);
+    };
+  </script>
+</body>
+</html>
