@@ -4,87 +4,281 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KrishiMitra - Plant Disease Scanner</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'farm-green': {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d'
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'gradient': 'gradient 15s ease infinite',
+            'slide-up': 'slideUp 0.8s ease-out',
+            'fade-in': 'fadeIn 1s ease-out',
+            'morph': 'morph 8s ease-in-out infinite',
+            'bounce-slow': 'bounce 3s infinite',
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #f0fdf4, #e6fffa);
-      padding: 2rem;
-      color: #1a202c;
+    * {
+      font-family: 'Inter', sans-serif;
     }
-    h1 {
-      color: #2c7a7b;
-      text-align: center;
-      margin-bottom: 1rem;
+    
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(1deg); }
     }
-    .container {
-      max-width: 600px;
-      background: #fff;
-      padding: 2rem;
-      margin: 0 auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
-    #preview {
-      display: none;
+    
+    @keyframes slideUp {
+      from { transform: translateY(80px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .glass-green {
+      background: rgba(34, 197, 94, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+    }
+    
+    .green-gradient {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #4ade80 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hover-lift {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+    
+    .floating-elements {
+      position: absolute;
       width: 100%;
-      max-height: 250px;
-      object-fit: contain;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
     }
-    input,
-    button {
+    
+    .floating-shape {
+      position: absolute;
+      opacity: 0.1;
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .floating-shape:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .floating-shape:nth-child(2) {
+      top: 30%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+    
+    .floating-shape:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+    
+    .morphing-blob {
+      animation: morph 12s ease-in-out infinite;
+      background: linear-gradient(45deg, #22c55e, #4ade80);
+      opacity: 0.08;
+    }
+    
+    .nav-link {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
       width: 100%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
     }
-    button {
-      cursor: pointer;
-      background-color: #2c7a7b;
-      color: white;
-      border: none;
-      font-weight: bold;
-      transition: background 0.3s;
+    
+    .leaf-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
-    button:hover {
-      background-color: #285e5f;
+    
+    .scroll-indicator {
+      animation: bounce 2s infinite;
     }
-    #result {
-      white-space: pre-wrap;
-      background: #f9f9f9;
-      padding: 1rem;
-      margin-top: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      min-height: 120px;
-    }
-    #loading {
-      text-align: center;
-      display: none;
-      color: #2c7a7b;
-      font-weight: 600;
-      margin-top: 1rem;
+    
+    @media (max-width: 768px) {
+      .floating-elements { display: none; }
     }
   </style>
 </head>
-<body>
-  <h1>KrishiMitra - Plant Disease Scanner</h1>
+<body class="bg-white text-gray-800 overflow-x-hidden">
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 transition-all duration-300 transform" id="navbar">
+    <div class="container mx-auto px-6 py-2">
+      <div class="glass rounded-2xl px-6 py-3 shadow-lg">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-xl white-gradient flex items-center justify-center shadow-lg">
+              <img src="logo.png" alt="KrishiMitra Logo" class="w-8 h-8">
+            </div>
+            <span class="text-2xl font-bold font-poppins text-gradient">KrishiMitra</span>
+          </div>
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="index.html#home" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Home</a>
+            <a href="index.html#features" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Features</a>
+            <a href="index.html#market" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Marketplace</a>
+            <a href="index.html#about" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">About</a>
+            <a href="index.html#contact" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Contact</a>
+            <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
+              Let’s Grow
+            </a>
+          </div>
+          <button id="mobile-menu-toggle" class="md:hidden text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-  <div class="container">
-    <input type="file" id="imageInput" accept="image/*" />
-    <img id="preview" alt="Preview" />
-    <button id="classifyBtn">🌾 Classify Image</button>
-
-    <div id="loading">🔍 Analyzing image... Please wait.</div>
-    <pre id="result">Upload an image to scan for plant diseases.</pre>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
+    <div class="glass min-h-screen flex flex-col justify-center items-center space-y-8">
+      <a href="index.html#home" class="text-2xl font-semibold text-farm-green-800 hover:text-farm-green-600 transition-colors">Home</a>
+      <a href="index.html#features" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Features</a>
+      <a href="index.html#market" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Marketplace</a>
+      <a href="index.html#about" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">About</a>
+      <a href="index.html#contact" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Contact</a>
+      <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
+        Let’s Grow
+      </a>
+    </div>
   </div>
+
+  <!-- Main Content -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden gradient-bg">
+    <div class="floating-elements">
+      <div class="floating-shape w-64 h-64 morphing-blob"></div>
+      <div class="floating-shape w-48 h-48 morphing-blob"></div>
+      <div class="floating-shape w-32 h-32 morphing-blob"></div>
+    </div>
+    
+    <div class="container mx-auto px-6 pt-24 pb-16 relative z-10">
+      <div class="text-center mb-12 animate-slide-up">
+        <div class="inline-flex items-center px-4 py-2 glass-green rounded-full text-sm font-medium text-farm-green-700 mb-6">
+          <span class="w-2 h-2 bg-farm-green-500 rounded-full mr-2 animate-pulse"></span>
+          AI-Powered Disease Detection
+        </div>
+        <h1 class="text-4xl lg:text-6xl font-bold font-poppins mb-6">
+          <span class="text-gradient">Rogi Scan</span><br>
+          <span class="text-gray-800">Plant Disease Scanner</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Upload an image of your plant to detect diseases instantly with AI-powered analysis and get tailored treatment recommendations.
+        </p>
+      </div>
+
+      <div class="container max-w-2xl mx-auto glass rounded-2xl p-8 card-hover animate-slide-up">
+        <input type="file" id="imageInput" accept="image/*" class="w-full px-4 py-3 bg-white/10 rounded-lg text-gray-800 border border-farm-green-200 focus:border-farm-green-400 outline-none mb-4" />
+        <img id="preview" alt="Preview" class="hidden w-full max-h-64 object-contain rounded-lg mb-4" />
+        <button id="classifyBtn" class="group hover-lift green-gradient w-full py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
+          <i class="fas fa-seedling mr-3 text-2xl group-hover:scale-110 transition-transform"></i>
+          Classify Image
+        </button>
+        <div id="loading" class="text-center hidden text-farm-green-700 font-semibold mt-4">🔍 Analyzing image... Please wait.</div>
+        <pre id="result" class="bg-farm-green-50 p-4 mt-4 rounded-lg text-gray-600 leading-relaxed min-h-[120px]">
+          Upload an image to scan for plant diseases.
+        </pre>
+      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
+      <div class="w-6 h-10 border-2 border-farm-green-500 rounded-full flex justify-center">
+        <div class="w-1 h-3 bg-farm-green-500 rounded-full mt-2 animate-pulse"></div>
+      </div>
+    </div>
+  </section>
 
   <script>
     const FUNCTION_URL = "https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/hf_image_with_recommendation";
-    const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your anon key
+    const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
 
     const input = document.getElementById("imageInput");
     const preview = document.getElementById("preview");
@@ -98,7 +292,7 @@
         const reader = new FileReader();
         reader.onload = () => {
           preview.src = reader.result;
-          preview.style.display = "block";
+          preview.classList.remove("hidden");
         };
         reader.readAsDataURL(file);
       }
@@ -109,7 +303,7 @@
       if (!file) return alert("Please select an image first!");
 
       result.textContent = "";
-      loading.style.display = "block";
+      loading.classList.remove("hidden");
 
       const reader = new FileReader();
       reader.onload = async () => {
@@ -125,7 +319,7 @@
           });
 
           const data = await res.json();
-          loading.style.display = "none";
+          loading.classList.add("hidden");
 
           if (!res.ok) {
             result.textContent = `❌ Error: ${data.error || data.message || res.statusText}`;
@@ -134,13 +328,54 @@
 
           result.textContent = `✅ Prediction: ${data.prediction}\n📊 Confidence: ${data.confidence}\n\n🌿 Recommendation:\n${data.recommendation?.trim() || "No recommendation available."}`;
         } catch (err) {
-          loading.style.display = "none";
+          loading.classList.add("hidden");
           result.textContent = `⚠️ Error: ${err.message}`;
         }
       };
 
       reader.readAsDataURL(file);
     };
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking on links
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Navbar background change on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.95)';
+      } else {
+        navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.85)';
+      }
+    });
   </script>
 </body>
 </html>
