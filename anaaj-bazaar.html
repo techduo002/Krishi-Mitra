@@ -196,55 +196,45 @@
   </style>
 </head>
 <body class="bg-white text-gray-800 overflow-x-hidden">
-  <!-- Navigation -->
-  <nav class="fixed w-full z-50 transition-all duration-300 transform" id="navbar">
-    <div class="container mx-auto px-6 py-4">
-      <div class="glass rounded-2xl px-6 py-3 shadow-lg">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 rounded-xl white-gradient flex items-center justify-center shadow-lg">
-              <img src="logo.png" alt="KrishiMitra Logo" class="w-8 h-8">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="glass rounded-2xl px-6 py-3 shadow-lg">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-white to-gray-100 flex items-center justify-center shadow-lg">
+                            <img src="logo.png" alt="KrishiMitra Logo" class="w-8 h-8">
+                        </div>
+                        <span class="text-2xl font-bold font-poppins text-gradient">KrishiMitra</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Home</a>
+                        <a href="#offers" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Offers</a>
+                        <a href="#how-it-works" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">How It Works</a>
+                        <a href="#contact" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Contact</a>
+                       
+                    </div>
+                    <button id="mobile-menu-toggle" class="md:hidden text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <span class="text-2xl font-bold font-poppins text-gradient">KrishiMitra</span>
-          </div>
-          
-          <div class="hidden md:flex items-center space-x-8">
-            <a href="index.html#home" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Home</a>
-            <a href="index.html#features" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Features</a>
-            <a href="index.html#market" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Marketplace</a>
-            <a href="index.html#about" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">About</a>
-            <a href="index.html#contact" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Contact</a>
-            <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
-              Let’s Grow
-            </a>    
-          </div>
-          
-          <button id="mobile-menu-toggle" class="md:hidden text-gray-700">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
         </div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-0 z-40 hidden">
-    <div class="glass min-h-screen flex flex-col justify-center items-center space-y-8">
-      <a href="index.html#home" class="text-2xl font-semibold text-farm-green-800 hover:text-farm-green-600 transition-colors">Home</a>
-      <a href="index.html#features" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Features</a>
-      <a href="index.html#market" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Marketplace</a>
-      <a href="index.html#about" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">About</a>
-      <a href="index.html#contact" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Contact</a>
-      <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
-        Let’s Grow
-      </a> 
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 hidden glass min-h-screen flex flex-col justify-center items-center space-y-8">
+        <a href="index.html" class="text-2xl font-semibold text-farm-green-800 hover:text-farm-green-600 transition-colors">Home</a>
+        <a href="#offers" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Offers</a>
+        <a href="#how-it-works" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">How It Works</a>
+        <a href="#contact" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Contact</a>
+
     </div>
-  </div>
 
   <!-- Main Section -->
-  <section class="py-24 px-6 relative overflow-hidden gradient-bg">
+  <section class="py-32 px-6 relative overflow-hidden gradient-bg">
     <div class="floating-elements">
       <div class="floating-shape w-64 h-64 morphing-blob"></div>
       <div class="floating-shape w-48 h-48 morphing-blob"></div>
@@ -281,27 +271,117 @@
           <button type="submit" class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all">Submit Price</button>
         </form>
       </div>
+    </section>
       
       <!-- Table Section -->
-      <div class="glass rounded-2xl p-8 card-hover">
-        <h3 class="text-2xl font-bold font-poppins mb-6 text-gray-800">Latest Market Updates</h3>
-        <div class="table-container">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="bg-farm-green-50 text-farm-green-800">
-                <th class="px-4 py-3 font-semibold">Role</th>
-                <th class="px-4 py-3 font-semibold">Product</th>
-                <th class="px-4 py-3 font-semibold">Price (₹)</th>
-                <th class="px-4 py-3 font-semibold">Location</th>
-                <th class="px-4 py-3 font-semibold">Date</th>
-              </tr>
-            </thead>
-            <tbody id="dataBody" class="text-gray-600"></tbody>
-          </table>
+       <section id="offers">
+<div class="glass rounded-2xl p-8 card-hover mb-12">
+  <h3 class="text-2xl font-bold font-poppins mb-6 text-farm-green-700 flex items-center">
+    <i class="fas fa-seedling mr-3 text-farm-green-500"></i> Farmer Submissions
+  </h3>
+  <div class="table-container">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="bg-farm-green-50 text-farm-green-800">
+          <th class="px-4 py-3 font-semibold">Product</th>
+          <th class="px-4 py-3 font-semibold">Price (₹)</th>
+          <th class="px-4 py-3 font-semibold">Location</th>
+          <th class="px-4 py-3 font-semibold">Date</th>
+        </tr>
+      </thead>
+      <tbody id="farmerDataBody" class="text-gray-600">
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="glass rounded-2xl p-8 card-hover">
+  <h3 class="text-2xl font-bold font-poppins mb-6 text-farm-green-700 flex items-center">
+    <i class="fas fa-truck-moving mr-3 text-farm-green-500"></i> Trader Offers
+  </h3>
+  <div class="table-container">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="bg-farm-green-50 text-farm-green-800">
+          <th class="px-4 py-3 font-semibold">Product</th>
+          <th class="px-4 py-3 font-semibold">Price (₹)</th>
+          <th class="px-4 py-3 font-semibold">Location</th>
+          <th class="px-4 py-3 font-semibold">Date</th>
+        </tr>
+      </thead>
+      <tbody id="traderDataBody" class="text-gray-600">
+        </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24 px-6 bg-gray-50 leaf-pattern">
+        <div class="container mx-auto">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center px-4 py-2 glass-green rounded-full text-sm font-medium text-farm-green-700 mb-6">
+                    <span class="w-2 h-2 bg-farm-green-500 rounded-full mr-2 animate-pulse"></span>
+                    How It Works
+                </div>
+                <h2 class="text-4xl lg:text-6xl font-bold font-poppins mb-6">
+                    <span class="text-gradient">Simple Steps</span><br>
+                    <span class="text-gray-800">to Post & Track Prices</span>
+                </h2>
+            </div>
+            <ol class="space-y-4 text-gray-600 max-w-2xl mx-auto">
+                <li class="flex items-start">
+                    <span class="w-8 h-8 bg-farm-green-500 text-white rounded-full flex items-center justify-center mr-4 font-bold">1</span>
+                    <span>Submit Price: Post your selling (Farmer) or buying (Trader) price and product details.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="w-8 h-8 bg-farm-green-500 text-white rounded-full flex items-center justify-center mr-4 font-bold">2</span>
+                    <span>View Live Tables: Instantly see submissions separated into Farmer and Trader tables.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="w-8 h-8 bg-farm-green-500 text-white rounded-full flex items-center justify-center mr-4 font-bold">3</span>
+                    <span>Contact & Deal: Use the live data to find partners and negotiate your final transaction.</span>
+                </li>
+            </ol>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="contact" class="py-24 px-6 relative overflow-hidden green-gradient">
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl lg:text-6xl font-bold font-poppins mb-8 text-white">
+                    <span class="text-yellow-300">Get in Touch</span><br>
+                    We're Here to Help
+                </h2>
+                <p class="text-xl lg:text-2xl text-white/90 mb-12 leading-relaxed">
+                    Have questions? Our team is ready to assist you with any farming or app-related queries.
+                </p>
+                <form id="contactForm" class="glass-green rounded-2xl p-8 max-w-2xl mx-auto border border-white/20">
+                    <div class="space-y-6">
+                        <input type="text" id="name" name="name" placeholder="Your Name" class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required>
+                        <input type="email" id="email" name="email" placeholder="Your Email" class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required>
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message..." class="w-full px-4 py-3 bg-white/10 rounded-lg text-white placeholder-white/70 border border-white/20 focus:border-white/40 outline-none" required></textarea>
+                        <button type="submit" class="w-full green-gradient text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all">Send Message</button>
+                        <p id="responseMsg" class="text-lg mt-4 text-white/90"></p>
+                    </div>
+                </form>
+                <div class="mt-12 flex flex-wrap justify-center gap-8">
+                    <div class="flex items-center text-white/90">
+                        <i class="fas fa-phone text-yellow-300 mr-2"></i>
+                        <span>+91 89492 06491</span>
+                    </div>
+                    <div class="flex items-center text-white/90">
+                        <i class="fas fa-envelope text-yellow-300 mr-2"></i>
+                        <span>support@krishimitra.com</span>
+                    </div>
+                    <div class="flex items-center text-white/90">
+                        <i class="fab fa-whatsapp text-yellow-300 mr-2"></i>
+                        <span>WhatsApp Us</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 py-16 px-6 relative">
@@ -377,80 +457,103 @@
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const form = document.getElementById("priceForm");
-    const dataBody = document.getElementById("dataBody");
+// NEW Data Logic - Start replacement here (around line 353)
+    const form = document.getElementById("priceForm");
+    // Update: Target the new table bodies
+    const farmerDataBody = document.getElementById("farmerDataBody");
+    const traderDataBody = document.getElementById("traderDataBody");
 
-    // Insert Data
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
 
-      const role = document.getElementById("role").value.trim();
-      const product = document.getElementById("product").value.trim();
-      const price = parseFloat(document.getElementById("price").value);
-      const location = document.getElementById("location").value.trim();
-      const date = new Date().toISOString();
+    // Helper function to create a table row
+    function createRow(row, isNew = false) {
+      const tr = document.createElement("tr");
+      // Add a visual cue for newly added rows from the subscription
+      tr.className = `hover:bg-farm-green-50 transition-colors ${isNew ? 'animate-slide-up' : ''}`;
+      
+      tr.innerHTML = `
+        <td class="px-4 py-3">${row.product}</td>
+        <td class="px-4 py-3 text-farm-green-600">₹${row.price}</td>
+        <td class="px-4 py-3">${row.location}</td>
+        <td class="px-4 py-3">${new Date(row.date).toLocaleString()}</td>
+      `;
+      return tr;
+    }
 
-      const { error } = await supabaseClient.from("anaaj_bazaar").insert([
-        { role, product, price, location, date }
-      ]);
-
-      if (error) {
-        alert("❌ Error: " + error.message);
-      } else {
-        form.reset();
-        alert("✅ Price submitted successfully!");
-      }
-    });
-
-    // Fetch Initial Data
-    async function fetchData() {
-      const { data, error } = await supabaseClient
-        .from("anaaj_bazaar")
-        .select("*")
-        .order("date", { ascending: false });
-
-      if (error) {
-        console.error(error);
-      } else {
-        dataBody.innerHTML = "";
-        data.forEach((row) => {
-          const tr = document.createElement("tr");
-          tr.className = "hover:bg-farm-green-50 transition-colors";
-          tr.innerHTML = `
-            <td class="px-4 py-3">${row.role}</td>
-            <td class="px-4 py-3">${row.product}</td>
-            <td class="px-4 py-3 text-farm-green-600">₹${row.price}</td>
-            <td class="px-4 py-3">${row.location}</td>
-            <td class="px-4 py-3">${new Date(row.date).toLocaleString()}</td>
-          `;
-          dataBody.appendChild(tr);
-        });
+    // Helper function to direct the row to the correct table
+    function insertDataIntoTable(row, isNew = false) {
+      const tableRow = createRow(row, isNew);
+      if (row.role === 'Farmer') {
+        // Prepend new data at the top
+        farmerDataBody.prepend(tableRow); 
+      } else if (row.role === 'Trader') {
+        // Prepend new data at the top
+        traderDataBody.prepend(tableRow);
       }
     }
 
-    fetchData();
 
-    // Real-Time Subscription
-    supabaseClient
-      .channel('anaaj_bazaar_changes')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'anaaj_bazaar' },
-        payload => {
-          const newRow = payload.new;
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-farm-green-50 transition-colors animate-slide-up";
-          tr.innerHTML = `
-            <td class="px-4 py-3">${newRow.role}</td>
-            <td class="px-4 py-3">${newRow.product}</td>
-            <td class="px-4 py-3 text-farm-green-600">₹${newRow.price}</td>
-            <td class="px-4 py-3">${newRow.location}</td>
-            <td class="px-4 py-3">${new Date(newRow.date).toLocaleString()}</td>
-          `;
-          dataBody.prepend(tr);
-        }
-      )
-      .subscribe();
+    // Insert Data (Keep your existing form submission logic here)
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const role = document.getElementById("role").value.trim();
+      const product = document.getElementById("product").value.trim();
+      const price = parseFloat(document.getElementById("price").value);
+      const location = document.getElementById("location").value.trim();
+      const date = new Date().toISOString();
+
+      const { error } = await supabaseClient.from("anaaj-bazaar").insert([
+        { role, product, price, location, date }
+      ]);
+
+      if (error) {
+        alert("❌ Error: " + error.message);
+      } else {
+        form.reset();
+        alert("✅ Price submitted successfully!");
+      }
+    });
+
+
+    // Fetch Initial Data - UPDATED
+    async function fetchData() {
+      // Add a simple loading state
+      farmerDataBody.innerHTML = "<tr><td colspan='4' class='text-center py-6 text-gray-400'>Loading farmer submissions...</td></tr>";
+      traderDataBody.innerHTML = "<tr><td colspan='4' class='text-center py-6 text-gray-400'>Loading trader offers...</td></tr>";
+      
+      const { data, error } = await supabaseClient
+        .from("anaaj-bazaar")
+        .select("*")
+        .order("date", { ascending: false });
+
+      if (error) {
+        console.error(error);
+        farmerDataBody.innerHTML = "<tr><td colspan='4' class='text-center py-6 text-red-500'>Error loading data.</td></tr>";
+        traderDataBody.innerHTML = "<tr><td colspan='4' class='text-center py-6 text-red-500'>Error loading data.</td></tr>";
+      } else {
+        // Clear placeholder text
+        farmerDataBody.innerHTML = "";
+        traderDataBody.innerHTML = "";
+
+        data.forEach(insertDataIntoTable); // Use the helper function to sort and insert
+      }
+    }
+
+    fetchData();
+
+    // Real-Time Subscription - UPDATED
+    supabaseClient
+      .channel('anaaj-bazaar_changes')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'anaaj-bazaar' },
+        payload => {
+          // Use the helper function to insert the new row with the animation flag
+          insertDataIntoTable(payload.new, true); 
+        }
+      )
+      .subscribe();
+// NEW Data Logic - End replacement here
 
     // Mobile Menu Toggle
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -493,6 +596,6 @@
       }
     });
   </script>
-  <script src='https://www.noupe.com/embed/0199fabd96d973cab57e989e951889a1347f.js'></script>
+  
 </body>
 </html>
