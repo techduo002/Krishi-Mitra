@@ -1,57 +1,23 @@
+const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KrishiMitra | Login</title>
-  <link rel="stylesheet" href="login.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
-<body>
+async function loginUser() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
 
-  <div class="login-container">
+  if (!email || !password) {
+    alert("⚠️ Please fill in both fields.");
+    return;
+  }
 
-    <!-- Left Panel -->
-    <div class="left-panel">
-      <div class="overlay">
-        <h1>Welcome Back to <span>KrishiMitra</span></h1>
-        <p>Empowering Indian Farmers with Innovation & Growth.</p>
+  const { data, error } = await client.auth.signInWithPassword({ email, password });
 
-        <div class="features">
-          <div><i class="fa-solid fa-seedling"></i> Smart Crop Suggestions</div>
-          <div><i class="fa-solid fa-cloud-sun"></i> Weather-based Insights</div>
-          <div><i class="fa-solid fa-store"></i> Anaaj Bazaar Access</div>
-        </div>
-      </div>
-    </div>
+  if (error) {
+    alert("❌ " + error.message);
+    return;
+  }
 
-    <!-- Right Panel -->
-    <div class="right-panel">
-      <div class="form-box">
-        <h2>Login</h2>
-        <p class="subtitle">Continue your KrishiMitra journey</p>
-
-        <div class="input-group">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="email" placeholder="Email Address" required />
-        </div>
-
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="password" placeholder="Password" required />
-        </div>
-
-        <button onclick="loginUser()">Login</button>
-
-        <p class="signup-text">
-          Don’t have an account? <a href="signup.html">Sign up here</a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script src="login.js"></script>
-</body>
-</html>
+  alert("✅ Welcome back to KrishiMitra!");
+  window.location.href = "index.html";
+}
