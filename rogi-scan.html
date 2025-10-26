@@ -22,7 +22,7 @@
 
   <script>
     const FUNCTION_URL = "https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/hf_image_with_recommendation";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your Supabase project's anon key
+    const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your Supabase anon key
 
     document.getElementById("classifyBtn").onclick = async () => {
       const file = document.getElementById("imageInput").files[0];
@@ -30,14 +30,14 @@
 
       const reader = new FileReader();
       reader.onload = async () => {
-        const base64Image = reader.result.split(",")[1]; // Remove "data:image/...;base64,"
+        const base64Image = reader.result.split(",")[1]; // Remove data:image/...;base64,
 
         try {
           const res = await fetch(FUNCTION_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${SUPABASE_ANON_KEY}` // <-- important!
+              "Authorization": `Bearer ${ANON_KEY}`
             },
             body: JSON.stringify({ imageBase64: base64Image })
           });
@@ -50,14 +50,12 @@
 
           const data = await res.json();
 
-          // Display prediction + recommendation
-          if (data.prediction && data.confidence && data.recommendation) {
+          if (data.prediction) {
             document.getElementById("result").textContent =
               `Prediction: ${data.prediction}\nConfidence: ${data.confidence}\n\nRecommendation:\n${data.recommendation}`;
           } else {
             document.getElementById("result").textContent = JSON.stringify(data, null, 2);
           }
-
         } catch (error) {
           document.getElementById("result").textContent = `Error: ${error.message}`;
         }
