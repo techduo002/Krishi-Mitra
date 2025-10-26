@@ -115,21 +115,25 @@ html, body {
     opacity: 0.08;
 }
 
-/* Navigation Link */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #22c55e, #4ade80);
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
 /* Card Styling for Listings */
 .card {
@@ -196,5 +200,4 @@ html, body {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .floating-elements { display: none; }
-}
+    .floating-elements { display: none; }}
