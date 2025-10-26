@@ -2,7 +2,6 @@
 const SUPABASE_URL = "https://kghafvoigkbcnpsikeow.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 // --- Custom Role Dropdown ---
 const roleDropdown = document.querySelector('.role-dropdown');
 const selected = roleDropdown.querySelector('.selected');
@@ -21,7 +20,6 @@ options.forEach(option => {
   });
 });
 
-// Close dropdown if clicked outside
 document.addEventListener('click', (e) => {
   if (!roleDropdown.contains(e.target)) {
     roleDropdown.classList.remove('active');
@@ -35,7 +33,6 @@ async function signUpUser() {
   const fullName = document.getElementById('fullname').value.trim();
   const role = selectedRole;
 
-  // Basic validation
   if (!email || !password || !fullName || !role) {
     alert("⚠️ Please fill in all fields and select a role.");
     return;
@@ -48,13 +45,30 @@ async function signUpUser() {
       options: {
         data: {
           full_name: fullName,
-          role: role
+          role: role,
         },
       },
     });
 
     if (error) {
-      alert("❌ " + error.message);
+      // 👇 If email already exists, resend confirmation link
+      if (error.message.includes("already registered")) {
+        const { error: resendError } = await client.auth.resend({
+          type: "signup",
+          email,
+          options: {
+            emailRedirectTo: "https://krishimitra.vercel.app/confirm.html", // change if needed
+          },
+        });
+
+        if (resendError) {
+          alert("❌ Couldn't resend confirmation email: " + resendError.message);
+        } else {
+          alert("📧 A new confirmation link has been sent to your email!");
+        }
+      } else {
+        alert("❌ " + error.message);
+      }
       return;
     }
 
