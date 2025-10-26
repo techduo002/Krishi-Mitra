@@ -11,6 +11,32 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   console.log("✅ Supabase initialized:", supabase);
 
+          // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar background change on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.querySelector('.glass').style.background = 'rgba(255, 255, 255, 0.85)';
+            }
+        });
+
   // ---------- DOM references ----------
   const rentalForm = document.getElementById("rentalForm");
   const requestForm = document.getElementById("requestForm");
@@ -225,13 +251,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
     const payload = {
       farmer_name: document.getElementById("farmer_name").value.trim(),
-      contact: document.getElementById("req_contact").value.trim(),
+      req_contact: document.getElementById("req_contact").value.trim(),
       requested_equipment: document.getElementById("requested_equipment").value.trim(),
-      location: document.getElementById("req_location").value.trim(),
+      req_location: document.getElementById("req_location").value.trim(),
       duration_days: Number(document.getElementById("duration_days").value) || null,
       notes: document.getElementById("notes").value.trim() || null
     };
-    if (!payload.farmer_name || !payload.contact || !payload.requested_equipment) {
+    if (!payload.farmer_name || !payload.req_contact || !payload.requested_equipment) {
       alert("Please fill required fields.");
       return;
     }
@@ -260,3 +286,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadAvailableEquipment();
   await loadEquipmentRequests();
 });
+
