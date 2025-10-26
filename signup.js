@@ -57,7 +57,7 @@ async function signUpUser() {
           type: "signup",
           email,
           options: {
-            emailRedirectTo: "https://krishimitra.vercel.app/confirm.html", // change if needed
+            emailRedirectTo: "https://krishimitra.vercel.app/login.html", // change if needed
           },
         });
 
