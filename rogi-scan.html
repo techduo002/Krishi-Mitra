@@ -11,7 +11,6 @@
     input, button { margin-top: 1rem; padding: 0.5rem; font-size: 1rem; }
     button { cursor: pointer; background-color: #2c7a7b; color: white; border: none; border-radius: 5px; }
     button:hover { background-color: #285e5f; }
-    #loader { display: none; margin-top: 1rem; }
   </style>
 </head>
 <body>
@@ -19,11 +18,11 @@
   <h1>KrishiMitra - Plant Disease Scanner</h1>
   <input type="file" id="imageInput" accept="image/*" />
   <button id="classifyBtn">Classify</button>
-  <div id="loader">Scanning, please wait...</div>
   <pre id="result">Upload an image to scan for plant disease.</pre>
 
   <script>
     const FUNCTION_URL = "https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/hf_image_with_recommendation";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI"; // Replace with your Supabase project's anon key
 
     document.getElementById("classifyBtn").onclick = async () => {
       const file = document.getElementById("imageInput").files[0];
@@ -32,41 +31,35 @@
       const reader = new FileReader();
       reader.onload = async () => {
         const base64Image = reader.result.split(",")[1]; // Remove "data:image/...;base64,"
-        const resultEl = document.getElementById("result");
-        const loader = document.getElementById("loader");
-
-        resultEl.textContent = "";
-        loader.style.display = "block";
 
         try {
           const res = await fetch(FUNCTION_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${SUPABASE_ANON_KEY}` // <-- important!
+            },
             body: JSON.stringify({ imageBase64: base64Image })
           });
 
-          loader.style.display = "none";
-
           if (!res.ok) {
             const err = await res.json().catch(() => ({ message: res.status }));
-            resultEl.textContent = `Error: ${err.message || res.status}`;
+            document.getElementById("result").textContent = `Error: ${err.message || res.status}`;
             return;
           }
 
           const data = await res.json();
 
-          // Display prediction, confidence, and recommendation
-          if (data.prediction) {
-            resultEl.textContent = 
-              `Prediction: ${data.prediction}\n` +
-              `Confidence: ${data.confidence || 'N/A'}\n\n` +
-              `Recommendation:\n${data.recommendation || 'No recommendation available.'}`;
+          // Display prediction + recommendation
+          if (data.prediction && data.confidence && data.recommendation) {
+            document.getElementById("result").textContent =
+              `Prediction: ${data.prediction}\nConfidence: ${data.confidence}\n\nRecommendation:\n${data.recommendation}`;
           } else {
-            resultEl.textContent = JSON.stringify(data, null, 2);
+            document.getElementById("result").textContent = JSON.stringify(data, null, 2);
           }
+
         } catch (error) {
-          loader.style.display = "none";
-          resultEl.textContent = `Error: ${error.message}`;
+          document.getElementById("result").textContent = `Error: ${error.message}`;
         }
       };
 
