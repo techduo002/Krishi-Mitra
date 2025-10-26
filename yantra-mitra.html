@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YantraMitra — Equipment Rentals</title>
+    <title>YantraMitra | KrishiMitra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -36,52 +36,11 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="yantramitra.css" />
+    <link rel="stylesheet" href="yantra-mitra.css" />
 </head>
 <body class="bg-white text-gray-800 overflow-x-hidden font-inter">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar fixed top-0 left-[-250px] w-[250px] h-full bg-white shadow-lg transition-all duration-300 z-[1000]" aria-label="Sidebar Navigation">
-        <div class="sidebar-header flex justify-between items-center p-5 border-b border-gray-200">
-            <h3 class="text-xl font-bold font-poppins text-farm-green-800" data-translate="settings">Settings</h3>
-            <button id="toggle-sidebar" class="text-gray-600 hover:text-farm-green-600" aria-label="Close Sidebar">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <nav class="sidebar-nav p-5">
-            <ul class="sidebar-menu space-y-4">
-                <li class="sidebar-item flex items-center p-3 hover:bg-gray-100 rounded-lg transition-colors">
-                    <i class="fas fa-globe text-farm-green-600 mr-3"></i>
-                    <span data-translate="language">Language</span>
-                    <div class="sidebar-subcontent ml-auto">
-                        <select id="language-select" class="border border-gray-300 rounded-lg p-1">
-                            <option value="en">English</option>
-                            <option value="hi">Hindi</option>
-                        </select>
-                    </div>
-                </li>
-                <li class="sidebar-item flex items-center p-3 hover:bg-gray-100 rounded-lg transition-colors">
-                    <i class="fas fa-moon text-farm-green-600 mr-3"></i>
-                    <span data-translate="theme">Theme</span>
-                    <div class="sidebar-subcontent ml-auto">
-                        <button id="theme-toggle" class="text-farm-green-600 hover:text-farm-green-800" data-translate="dark_mode">Dark Mode</button>
-                    </div>
-                </li>
-                <li class="sidebar-item flex items-center p-3 hover:bg-gray-100 rounded-lg transition-colors">
-                    <i class="fas fa-user text-farm-green-600 mr-3"></i>
-                    <span data-translate="profile">Profile</span>
-                    <div class="sidebar-subcontent ml-auto">
-                        <button onclick="location.href='login.html'" class="text-farm-green-600 hover:text-farm-green-800" data-translate="login_profile">Login / Profile</button>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-    </aside>
 
-    <!-- Sidebar toggle button -->
-    <button id="open-sidebar" class="fixed top-5 left-5 bg-farm-green-600 text-white p-3 rounded-lg hover:bg-farm-green-700 transition-all z-[999]" aria-label="Open Sidebar">
-        <i class="fas fa-bars"></i>
-    </button>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
@@ -99,9 +58,7 @@
                         <a href="#equipment" class="nav-link px-4 py-2 rounded-lg text-farm-green-800 font-medium hover:text-farm-green-600 transition-all duration-300">Equipment</a>
                         <a href="#how-it-works" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">How It Works</a>
                         <a href="#contact" class="nav-link px-4 py-2 rounded-lg text-gray-600 font-medium hover:text-farm-green-600 transition-all duration-300">Contact</a>
-                        <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
-                            Let’s Grow
-                        </a>
+                       
                     </div>
                     <button id="mobile-menu-toggle" class="md:hidden text-gray-700">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,9 +76,7 @@
         <a href="#equipment" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Equipment</a>
         <a href="#how-it-works" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">How It Works</a>
         <a href="#contact" class="text-2xl font-semibold text-gray-600 hover:text-farm-green-600 transition-colors">Contact</a>
-        <a href="login.html" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
-            Let’s Grow
-        </a>
+
     </div>
 
     <!-- Hero Section -->
@@ -145,6 +100,7 @@
                     <p class="text-xl text-gray-600 leading-relaxed max-w-2xl">
                         Post your equipment for rent as an owner, or raise a request as a farmer. Listings and requests are stored securely and update in real time.
                     </p>
+                    
                     <div class="flex flex-col sm:flex-row gap-4">
                         <button id="showOfferBtn" class="group hover-lift green-gradient px-8 py-4 rounded-xl font-bold text-lg text-white shadow-xl hover:shadow-farm-green-500/25 transition-all duration-300 flex items-center justify-center">
                             <i class="fas fa-tools mr-3 text-2xl group-hover:scale-110 transition-transform"></i>
@@ -420,16 +376,11 @@
     </script>
 
     <!-- App Script -->
-    <script src="yantramitra.js"></script>
+    <script src="yantra-mitra.js"></script>
 
     <!-- JavaScript for Interactivity -->
     <script>
-        // Sidebar Toggle
-        const openSidebarBtn = document.getElementById('open-sidebar');
-        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
-        const sidebar = document.getElementById('sidebar');
-        openSidebarBtn.addEventListener('click', () => sidebar.classList.add('active'));
-        toggleSidebarBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
 
         // Mobile Menu Toggle
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -480,11 +431,9 @@
             const shapes = document.querySelectorAll('.floating-shape');
             shapes.forEach((shape, index) => {
                 const speed = (index + 1) * 0.3;
-                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+                shape.style.transform = translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg);
             });
         });
     </script>
-    <script src='https://www.noupe.com/embed/0199f1373e0279f7b7c7e7bfc7d604b91b8f.js'></script>
 </body>
 </html>
-
