@@ -32,7 +32,8 @@
       border-radius: 8px;
       margin-bottom: 1rem;
     }
-    input, button {
+    input,
+    button {
       width: 100%;
       padding: 0.8rem;
       font-size: 1rem;
@@ -58,13 +59,14 @@
       margin-top: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      min-height: 100px;
+      min-height: 120px;
     }
     #loading {
       text-align: center;
       display: none;
       color: #2c7a7b;
       font-weight: 600;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -82,7 +84,7 @@
 
   <script>
     const FUNCTION_URL = "https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/hf_image_with_recommendation";
-    const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI";
+    const ANON_KEY = "YOUR_SUPABASE_ANON_KEY_HERE"; // Replace with your anon key
 
     const input = document.getElementById("imageInput");
     const preview = document.getElementById("preview");
@@ -112,7 +114,6 @@
       const reader = new FileReader();
       reader.onload = async () => {
         const base64Image = reader.result.split(",")[1];
-
         try {
           const res = await fetch(FUNCTION_URL, {
             method: "POST",
@@ -132,15 +133,12 @@
           }
 
           result.textContent = `✅ Prediction: ${data.prediction}\n📊 Confidence: ${data.confidence}\n\n🌿 Recommendation:\n${data.recommendation?.trim() || "No recommendation available."}`;
-
-          // Optional: scroll result into view
-          result.scrollIntoView({ behavior: "smooth" });
-
         } catch (err) {
           loading.style.display = "none";
           result.textContent = `⚠️ Error: ${err.message}`;
         }
       };
+
       reader.readAsDataURL(file);
     };
   </script>
