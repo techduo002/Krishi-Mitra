@@ -340,7 +340,7 @@
 
     // **IMPORTANT: Your API Keys**
     const WEATHER_KEY = "1c50e54a8864488988f154907251710"; // WeatherAPI
-    const OPENROUTER_KEY = "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"; // OpenRouter AI
+    
 
     // 🌤 Weather
     async function getWeather() {
@@ -408,37 +408,25 @@
       const adviceEl=document.getElementById("adviceText");
       adviceEl.innerHTML='<i class="fas fa-spinner fa-spin text-green-500 mr-2"></i> Generating advice for ' + crop + '...';
       
-      try {
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${OPENROUTER_KEY}`,
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://thekrishimitra.vercel.app",
-            "X-Title": "AI Crop Advisor"
-          },
-          body: JSON.stringify({
-            model: "openai/gpt-3.5-turbo",
-            messages: [
-              { role:"system", content:`You are an expert Indian agricultural advisor. Give advice for the specific crop requested in short practical points (4-6 max), each point one sentence. Do not use paragraphs or a greeting. Start directly with the first tip. Use '-' before each tip.` },
-              { role:"user", content:`Crop: ${crop}` }
-            ]
-          })
-        });
-        
-        const data=await response.json();
-        const text=data?.choices?.[0]?.message?.content || "No advice received. Try again later.";
+try {
+  const response = await fetch("https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/krishi-sanket", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ crop }),
+  });
 
-        // Convert AI response into a styled bullet list
-        const lines = text.split(/-\s+/).filter(line => line.trim() !== "");
-        const htmlList = lines.map(line => `<li class="mb-1">${line.trim()}</li>`).join("");
-        adviceEl.innerHTML = `<ul class="list-disc pl-5 text-left text-sm space-y-2">${htmlList}</ul>`;
+  const data = await response.json();
+  const text = data?.choices?.[0]?.message?.content || "No advice received. Try again later.";
 
-      } catch(e){
-        adviceEl.innerHTML="⚠️ **Error fetching advice.** The API might be unreachable. Please check your network or try again.";
-        console.error(e);
-      }
-    }
+  // Convert response to bullet list
+  const lines = text.split(/-\s+/).filter(line => line.trim() !== "");
+  const htmlList = lines.map(line => `<li class="mb-1">${line.trim()}</li>`).join("");
+  adviceEl.innerHTML = `<ul class="list-disc pl-5 text-left text-sm space-y-2">${htmlList}</ul>`;
+
+} catch (e) {
+  adviceEl.innerHTML = "⚠️ Error fetching advice. Please try again later.";
+  console.error(e);
+}
 
     // 🔄 Initialization Logic
     // Make sure to add the new functions to your existing window.onload/DOM initialization logic
