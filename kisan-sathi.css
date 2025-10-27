@@ -2,6 +2,50 @@
         * {
             font-family: 'Inter', sans-serif;
         }
+
+/* --- Typing Indicator Styles --- */
+.typing-indicator {
+    display: inline-flex; /* Use inline-flex to keep dots together */
+    align-items: center;
+    padding: 10px 15px;
+    margin: 8px 0;
+    max-width: 80%;
+    border-radius: 18px;
+    border-top-left-radius: 4px; /* Matches bot bubble */
+    background-color: #f3f4f6; /* bg-gray-100 */
+    color: #4b5563; /* text-gray-700 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    float: left; /* Aligns with bot messages */
+}
+
+.typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    margin-left: 4px;
+    border-radius: 50%;
+    background-color: #10b981; /* A nice green color (Green-500) */
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Delay the pulse for the second and third dots */
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.4);
+        opacity: 1;
+    }
+}
         
         .font-poppins { font-family: 'Poppins', sans-serif; }
         
