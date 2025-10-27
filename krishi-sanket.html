@@ -399,35 +399,44 @@
     }
 
     // 🌾 Crop Advisor
-    async function getCropAdvice(){
-      const crop=document.getElementById("cropName").value.trim();
-      if(!crop) {
-        document.getElementById("adviceText").innerHTML = 'Please enter a crop name, for example: **"Rice"** or **"Wheat"**.';
-        return;
-      }
-      const adviceEl=document.getElementById("adviceText");
-      adviceEl.innerHTML='<i class="fas fa-spinner fa-spin text-green-500 mr-2"></i> Generating advice for ' + crop + '...';
-      
-try {
-  const response = await fetch("https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/krishi-sanket", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ crop }),
-  });
+async function getCropAdvice() {
+  const crop = document.getElementById("cropName").value.trim();
+  const adviceEl = document.getElementById("adviceText");
 
-  const data = await response.json();
-  const text = data?.choices?.[0]?.message?.content || "No advice received. Try again later.";
+  if (!crop) {
+    adviceEl.innerHTML = 'Please enter a crop name.';
+    return;
+  }
 
-  // Convert response to bullet list
-  const lines = text.split(/-\s+/).filter(line => line.trim() !== "");
-  const htmlList = lines.map(line => `<li class="mb-1">${line.trim()}</li>`).join("");
-  adviceEl.innerHTML = `<ul class="list-disc pl-5 text-left text-sm space-y-2">${htmlList}</ul>`;
+  adviceEl.innerHTML = `<i class="fas fa-spinner fa-spin text-green-500 mr-2"></i> Generating advice for ${crop}...`;
+
+  try {
+    const response = await fetch("https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/krishi-sanket", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI",
+      },
+      body: JSON.stringify({ crop })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data?.advice || "No advice received. Try again later.";
+
+    const lines = text.split(/-\s+/).filter(line => line.trim() !== "");
+    const htmlList = lines.map(line => `<li class="mb-1">${line.trim()}</li>`).join("");
+    adviceEl.innerHTML = `<ul class="list-disc pl-5 text-left text-sm space-y-2">${htmlList}</ul>`;
 
   } catch (e) {
-    adviceEl.innerHTML = "⚠️ Error fetching advice. Please try again later.";
+    adviceEl.innerHTML = "⚠️ Error fetching advice. Please try again.";
     console.error(e);
   }
-}  // <-- this closes getCropAdvice properly
+}
+  // <-- this closes getCropAdvice properly
 
 // 🔄 Initialization Logic
 document.addEventListener('DOMContentLoaded', function() {
