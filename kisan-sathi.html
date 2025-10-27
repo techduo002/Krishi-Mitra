@@ -601,71 +601,45 @@
      
 
 async function sendMessage() {
-
   const inputEl = document.getElementById("userInput");
-
   const chatBox = document.getElementById("chat-box");
-
   const userMsg = inputEl.value.trim();
-
   if (!userMsg) return;
 
 
-
   // Add user message to chat
-
   chatBox.innerHTML += `<div class='chat-bubble bg-green-100 text-green-800 self-end float-right'><b>You:</b> ${userMsg}</div><div class='clear-both'></div>`;
-
   inputEl.value = "";
-
   chatBox.scrollTop = chatBox.scrollHeight;
 
 
-
   try {
-
     // 🔒 Call your Supabase Edge Function (not OpenRouter directly)
-
     const response = await fetch("https://kghafvoigkbcnpsikeow.supabase.co/functions/v1/kisan-sathi", {
-
       method: "POST",
-
       headers: {
-
         "Content-Type": "application/json",
-
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnaGFmdm9pZ2tiY25wc2lrZW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODI4OTIsImV4cCI6MjA3NjA1ODg5Mn0.F-b888j82DAx-IIkQacyQnJS1eBXnZdYVL8y_AI50DI" // replace with your anon key
 
       },
 
       body: JSON.stringify({ userMsg })
-
     });
 
 
-
     const data = await response.json();
-
     const reply = data?.reply || "Sorry, I couldn’t answer that.";
 
 
-
     // Add bot reply
-
     chatBox.innerHTML += `<div class='chat-bubble bg-gray-100 text-gray-800 float-left'><b>Kisan Sathi:</b> ${reply}</div><div class='clear-both'></div>`;
-
     chatBox.scrollTop = chatBox.scrollHeight;
 
 
-
   } catch (err) {
-
     chatBox.innerHTML += `<div class='text-red-500 mt-2'>⚠️ Error: ${err.message}</div>`;
-
   }
-
 }
-
   </script>
 
 </body>
