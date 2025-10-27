@@ -423,20 +423,17 @@ try {
   const htmlList = lines.map(line => `<li class="mb-1">${line.trim()}</li>`).join("");
   adviceEl.innerHTML = `<ul class="list-disc pl-5 text-left text-sm space-y-2">${htmlList}</ul>`;
 
-} catch (e) {
-  adviceEl.innerHTML = "⚠️ Error fetching advice. Please try again later.";
-  console.error(e);
-}
+  } catch (e) {
+    adviceEl.innerHTML = "⚠️ Error fetching advice. Please try again later.";
+    console.error(e);
+  }
+}  // <-- this closes getCropAdvice properly
 
-    // 🔄 Initialization Logic
-    // Make sure to add the new functions to your existing window.onload/DOM initialization logic
-    document.addEventListener('DOMContentLoaded', function() {
-        // ... (keep your existing mobile menu and smooth scrolling logic here)
-        
-        // New Dashboard Initialization
-        newTip(); 
-        getWeather();
-    });
+// 🔄 Initialization Logic
+document.addEventListener('DOMContentLoaded', function() {
+  newTip();
+  getWeather();
+});
   </script>
 </body>
 </html>
